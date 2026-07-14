@@ -1,0 +1,2081 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BrandBrain · 评分判定</title><style>
+:root {
+  color-scheme: light;
+  --ink: #1f1f1f;
+  --ink-soft: #6e6e73;
+  --forest: #ff2442;
+  --forest-2: #e91d3a;
+  --paper: #ffffff;
+  --cream: #f5f5f7;
+  --white: #ffffff;
+  --line: #ececef;
+  --line-strong: #d8d8de;
+  --coral: #ff2442;
+  --coral-soft: #fff0f3;
+  --lime: #ff2442;
+  --lime-soft: #fff0f3;
+  --blue: #5966d8;
+  --blue-soft: #eef0ff;
+  --amber: #9a6200;
+  --amber-soft: #fff6df;
+  --red: #d91f3a;
+  --red-soft: #fff0f3;
+  --shadow: 0 10px 32px rgba(24, 24, 27, .07);
+  --shadow-soft: 0 4px 18px rgba(24, 24, 27, .05);
+  --radius-xl: 16px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+* { box-sizing: border-box; }
+.illustration-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.item-illustration {
+  width: 58px;
+  height: 58px;
+  display: block;
+  flex: 0 0 auto;
+}
+html { min-width: 0; background: var(--cream); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-width: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+}
+button, input, select { font: inherit; }
+button, a, select, input { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+[hidden] { display: none !important; }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+h1, h2, h3, p { overflow-wrap: anywhere; }
+.demo-banner {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  width: 100%;
+  min-width: 0;
+  color: #f7fbf8;
+  background: rgba(18, 59, 46, .97);
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  backdrop-filter: blur(16px);
+}
+.banner-inner {
+  width: min(1180px, calc(100% - 32px));
+  min-width: 0;
+  min-height: 44px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 5px rgba(215,238,121,.13);
+}
+.banner-title {
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+.banner-note {
+  margin-left: auto;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 850;
+}
+.mobile-security-note { display: none; }
+.shell {
+  width: min(1180px, calc(100% - 32px));
+  min-width: 0;
+  margin: 0 auto;
+  padding: 22px 0 64px;
+}
+.topnav {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+.mark {
+  width: 28px;
+  height: 28px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--forest);
+  background: var(--lime);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+.nav-links { margin-left: auto; display: flex; flex-wrap: wrap; gap: 6px; }
+.nav-links a {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 11px;
+  color: var(--ink-soft);
+  background: rgba(255,255,255,.55);
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+}
+.nav-links a[aria-current="page"] { color: #fff; border-color: var(--forest); background: var(--forest); }
+.hero {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(230px, .55fr);
+  gap: 18px;
+  border: 1px solid rgba(18,59,46,.14);
+  border-radius: var(--radius-xl);
+  padding: clamp(24px, 4.5vw, 48px);
+  background: rgba(251,250,245,.88);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.hero-copy { min-width: 0; }
+.eyebrow {
+  width: max-content;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 10px;
+  border-radius: 999px;
+  padding: 4px 9px;
+  color: var(--forest);
+  background: var(--coral-soft);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+h1 {
+  margin: 0;
+  max-width: 820px;
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.hero-lede {
+  max-width: 720px;
+  margin: 18px 0 0;
+  color: var(--ink-soft);
+  font-size: clamp(15px, 2vw, 18px);
+}
+.hero-aside {
+  min-width: 0;
+  align-self: stretch;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  color: #f7fbf8;
+  background: var(--forest);
+}
+.hero-aside .context-label { color: var(--forest); font-size: 11px; font-weight: 900; letter-spacing: 0; }
+.hero-aside strong { display: block; margin-top: 8px; font-size: 30px; line-height: 1; }
+.hero-aside p { margin: 10px 0 0; color: rgba(247,251,248,.72); font-size: 13px; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.stat-chip {
+  min-width: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: rgba(255,255,255,.64);
+  font-size: 12px;
+}
+.stat-chip strong { font-size: 15px; }
+.section { min-width: 0; margin-top: 18px; }
+.section-head {
+  min-width: 0;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0 0 12px;
+}
+.section-head h2 { margin: 0; font-size: clamp(22px, 3vw, 31px); line-height: 1.12; letter-spacing: 0; }
+.section-head p { max-width: 560px; margin: 5px 0 0; color: var(--ink-soft); font-size: 13px; }
+.panel {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(251,250,245,.9);
+  box-shadow: var(--shadow-soft);
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 850;
+}
+.pill-green { color: var(--forest); background: var(--lime-soft); }
+.pill-blue { color: #235879; background: var(--blue-soft); }
+.pill-amber { color: #704208; background: var(--amber-soft); }
+.pill-red { color: var(--red); background: var(--red-soft); }
+.pill-neutral { color: var(--ink-soft); background: #e8ebe5; }
+.button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: #fff;
+  background: var(--forest);
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button:hover { background: var(--forest-2); }
+.button-secondary { color: var(--forest); border: 1px solid var(--line-strong); background: #fff; }
+.button-secondary:hover { background: var(--lime-soft); }
+.field { min-width: 0; display: grid; gap: 5px; }
+.field label, .field-label { color: var(--ink-soft); font-size: 11px; font-weight: 850; letter-spacing: .04em; }
+.field input, .field select, select.control {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  border: 1px solid var(--line-strong);
+  border-radius: 11px;
+  padding: 8px 10px;
+  color: var(--ink);
+  background: #fff;
+}
+.field input:focus, .field select:focus, select.control:focus, button:focus-visible, a:focus-visible {
+  outline: 3px solid rgba(51,116,154,.2);
+  outline-offset: 1px;
+  border-color: var(--blue);
+}
+.muted { color: var(--ink-soft); }
+.machine-token {
+  min-width: 0;
+  color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.item-dimension { color: var(--ink-soft); font-size: 11px; font-weight: 700; }
+.footer-note { margin: 28px 0 0; color: var(--ink-soft); font-size: 11px; text-align: center; }
+
+/* hub */
+.hub-shell { padding-top: 18px; }
+.gate-form {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.gate-form input {
+  width: 148px;
+  min-width: 0;
+  min-height: 30px;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 9px;
+  padding: 5px 9px;
+  color: #fff;
+  background: rgba(255,255,255,.1);
+  font-size: 12px;
+}
+.gate-form input::placeholder { color: rgba(255,255,255,.55); }
+.gate-form button {
+  min-height: 30px;
+  border: 0;
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: var(--forest);
+  background: var(--lime);
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.gate-feedback { margin: 0 0 0 4px; color: #ffd4c7; font-size: 11px; }
+.hub-hero {
+  position: relative;
+  grid-template-columns: minmax(0, 1.3fr) minmax(210px, .7fr);
+  color: #f7fbf8;
+  background: #ffffff;
+}
+.hub-hero .eyebrow { color: var(--lime); }
+.hub-hero .hero-lede { color: rgba(247,251,248,.73); }
+.hub-grid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.hub-card {
+  min-width: 0;
+  min-height: 242px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  background: rgba(251,250,245,.95);
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  overflow: hidden;
+}
+.hub-card:hover { transform: translateY(-3px); border-color: var(--forest-2); box-shadow: var(--shadow); }
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.card-index {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: var(--forest);
+  background: var(--lime);
+  font-weight: 950;
+}
+.card-arrow { color: var(--forest-2); font-size: 11px; font-weight: 900; white-space: nowrap; }
+.hub-card h2 { margin: 18px 0 5px; font-size: 25px; line-height: 1.12; letter-spacing: 0; }
+.hub-card p { margin: 0; color: var(--ink-soft); font-size: 13px; }
+.card-foot {
+  width: max-content;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 18px;
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: #fff;
+  background: var(--forest);
+  font-size: 11px;
+  font-weight: 900;
+}
+.trust-strip {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--line);
+  overflow: hidden;
+}
+.trust-item { min-width: 0; padding: 16px; background: rgba(251,250,245,.95); }
+.trust-item strong { display: block; font-size: 13px; }
+.trust-item span { color: var(--ink-soft); font-size: 11px; }
+
+/* eval */
+.eval-hero { padding: 22px 28px; }
+.eval-hero h1 { font-size: clamp(32px, 4.6vw, 44px); }
+.eval-hero .hero-lede { margin-top: 8px; font-size: 15px; }
+.eval-hero .stat-row { margin-top: 10px; }
+.eval-hero .stat-chip { padding: 7px 9px; }
+.eval-hero .hero-aside { padding: 16px; }
+.eval-hero .hero-aside p { margin-top: 8px; font-size: 12px; }
+.eval-calc-section { margin-top: 14px; }
+.eval-calc-section .section-head { margin-bottom: 8px; }
+.eval-calc-section .section-head .eyebrow { margin-bottom: 4px; }
+.eval-calc-section .section-head h2 { font-size: 27px; }
+.eval-calc-section .section-head p { margin-top: 3px; font-size: 12px; }
+.calc-layout {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(310px, .75fr);
+  gap: 14px;
+  align-items: start;
+}
+.item-controls { min-width: 0; padding: 10px; }
+.item-group + .item-group { margin-top: 14px; border-top: 2px solid var(--line-strong); padding-top: 12px; }
+.item-group-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 3px 8px 7px; }
+.item-group-head strong { color: var(--forest); font-size: 12px; }
+.item-group-head span { color: var(--ink-soft); font-size: 10px; font-weight: 800; }
+.score-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 42px 58px minmax(0, 1fr) 138px;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding: 11px 8px;
+}
+.score-item:last-child { border-bottom: 0; }
+.score-item.is-blocking {
+  border-radius: 12px;
+  border-bottom-color: transparent;
+  background: var(--coral-soft);
+  box-shadow: inset 3px 0 0 var(--coral);
+}
+.seq {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  color: var(--forest);
+  background: var(--lime-soft);
+  font-size: 12px;
+  font-weight: 900;
+}
+.item-copy { min-width: 0; }
+.item-copy strong { display: block; font-size: 13px; line-height: 1.35; }
+.item-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.item-meta .item-points, .item-meta .machine-token { display: none; }
+.item-points { color: var(--forest-2); background: #fff; }
+.group-rollup {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 8px;
+  border-radius: 11px;
+  padding: 8px;
+  background: var(--lime-soft);
+}
+.group-rollup > div { min-width: 0; }
+.group-rollup span { display: block; color: var(--ink-soft); font-size: 9px; font-weight: 850; }
+.group-rollup strong { display: block; margin-top: 2px; color: var(--forest); font-size: 11px; white-space: nowrap; }
+.group-rollup-note { grid-column: 1 / -1; color: var(--ink-soft); font-size: 9px; line-height: 1.35; }
+.verdict-select { min-width: 0; }
+.scoreboard {
+  position: sticky;
+  top: 58px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  color: #f7fbf8;
+  background: var(--forest);
+  border-color: var(--forest);
+}
+.score-heading { order: 1; }
+.verdict-title { order: 2; }
+.gate-reason { order: 3; }
+.result-triad { order: 4; }
+.rollup-box { order: 5; }
+.score-badges { order: 6; }
+.breakdown { order: 7; }
+.score-note { order: 8; }
+.score-heading { margin: 0; color: var(--forest); font-size: 11px; font-weight: 900; letter-spacing: 0; }
+.score-main { min-width: 0; display: flex; flex-wrap: wrap; align-items: end; gap: 10px; margin-top: 7px; overflow: hidden; }
+.score-number { color: rgba(247,251,248,.58); font-size: 18px; font-weight: 850; line-height: 1; letter-spacing: 0; }
+.score-unit { padding-bottom: 4px; color: rgba(247,251,248,.62); font-size: 12px; }
+.score-label { flex: 1 0 100%; padding-bottom: 0; color: var(--lime); font-size: 10px; font-weight: 850; }
+.score-badges { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
+.score-badge { border-radius: 999px; padding: 6px 9px; background: rgba(255,255,255,.1); font-size: 11px; font-weight: 850; }
+.score-badge.is-pass { color: var(--forest); background: var(--lime); }
+.score-badge.is-fail { color: #fff; background: var(--coral); }
+.verdict-title {
+  display: block;
+  margin-top: 7px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px;
+  padding: 9px 11px;
+  font-size: 26px;
+  font-weight: 950;
+  line-height: 1.12;
+}
+.verdict-title.is-pass { color: var(--forest); border-color: var(--lime); background: var(--lime); }
+.verdict-title.is-fail { color: #fff; border-color: var(--coral); background: var(--coral); }
+.verdict-main { display: block; }
+.verdict-summary { display: block; margin-top: 5px; font-size: 12px; font-weight: 900; line-height: 1.35; letter-spacing: 0; }
+.verdict-title.is-pass .verdict-summary { color: rgba(18,59,46,.78); }
+.verdict-title.is-fail .verdict-summary { color: #fff; }
+.gate-reason {
+  min-width: 0;
+  margin: 6px 0 0;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.result-triad {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  margin-top: 8px;
+}
+.result-cell { min-width: 0; border: 1px solid var(--line); border-radius: 9px; padding: 7px; background: #fff; }
+.result-cell > span { display: block; color: rgba(247,251,248,.72); font-size: 9.5px; font-weight: 900; }
+.result-cell > strong { display: block; margin-top: 2px; color: #fff; font-size: 14px; font-weight: 950; line-height: 1.15; overflow-wrap: anywhere; }
+.result-cell > small { display: block; margin-top: 3px; color: rgba(247,251,248,.78); font-size: 9px; font-weight: 850; line-height: 1.25; overflow-wrap: anywhere; }
+.result-cell > .result-before { color: rgba(247,251,248,.92); font-weight: 900; }
+.result-cell > .result-detail { color: rgba(247,251,248,.7); font-weight: 800; }
+.result-cell.is-gate-pass > strong { color: var(--lime); }
+.result-cell.is-gate-fail > strong { color: #ffb39f; }
+.result-cell.is-grade-fail > strong { color: #ffb39f; }
+.result-cell.is-updated { border-color: var(--forest); box-shadow: inset 0 0 0 1px var(--forest); background: var(--coral-soft); }
+.result-cell .score-number { color: rgba(247,251,248,.78); font-size: 16px; }
+.scoreboard.trace-spec .verdict-title { border-radius: 12px 12px 0 0; }
+.scoreboard.trace-spec .result-triad {
+  margin-top: 0;
+  border: 1px solid var(--lime);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+  padding: 7px;
+  background: rgba(215,238,121,.08);
+}
+.scoreboard.trace-spec.is-result-fail .result-triad { border-color: var(--coral); background: rgba(233,105,71,.13); }
+.scoreboard.trace-spec .result-cell { padding: 6px; background: #fff; }
+.scoreboard.trace-spec .result-cell > strong,
+.scoreboard.trace-spec .result-cell .score-number { font-size: 19px; letter-spacing: 0; }
+.breakdown { display: grid; gap: 10px; margin-top: 18px; }
+.bar-row { min-width: 0; }
+.bar-line { display: flex; justify-content: space-between; gap: 8px; color: rgba(247,251,248,.76); font-size: 11px; }
+.bar-track { height: 7px; margin-top: 5px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
+.bar-fill { height: 100%; width: 0; border-radius: inherit; background: var(--lime); transition: width .18s ease; }
+.score-note { margin: 15px 0 0; color: rgba(247,251,248,.68); font-size: 11px; }
+.rollup-box {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+  border: 1px solid rgba(215,238,121,.22);
+  border-radius: 11px;
+  padding: 8px;
+  background: rgba(255,255,255,.06);
+  font-size: 10px;
+}
+.logic-lane > span { display: block; font-size: 9px; font-weight: 900; letter-spacing: .03em; }
+.logic-lane > strong { display: block; margin-top: 3px; color: #fff; font-size: 10px; line-height: 1.4; overflow-wrap: anywhere; }
+.change-bridge {
+  display: block;
+  margin-top: 4px;
+  border-radius: 6px;
+  padding: 4px 6px;
+  color: #fff;
+  background: rgba(233,105,71,.34);
+  font-size: 10.5px;
+  font-weight: 950;
+  line-height: 1.3;
+}
+.change-bridge:empty { display: none; }
+.dimension-lines { display: grid; gap: 3px; margin-top: 6px; }
+.dimension-line { min-width: 0; display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 6px; align-items: baseline; }
+.dimension-line span { color: rgba(247,251,248,.72); font-size: 9px; font-weight: 850; }
+.dimension-line strong { color: #fff; font-size: 9.5px; line-height: 1.3; overflow-wrap: anywhere; }
+.dimension-line.is-primary { grid-template-columns: 1fr; gap: 2px; align-items: stretch; padding-bottom: 3px; }
+.dimension-line.is-primary > span { color: #fff; }
+.dimension-line .formula-meta { display: block; color: rgba(247,251,248,.72); font-size: 9px; font-weight: 850; }
+.dimension-line .formula-equation { display: block; margin-top: 1px; color: #fff; font-size: 11px; font-weight: 950; letter-spacing: .01em; }
+.dimension-line.is-total { border-top: 1px solid rgba(255,255,255,.18); padding-top: 3px; }
+.dimension-line.is-total span, .dimension-line.is-total strong { color: var(--lime); }
+.score-lane > span { color: var(--lime); }
+.gate-lane { margin-top: 6px; border-top: 1px solid rgba(255,179,159,.42); padding-top: 6px; }
+.gate-lane > span { color: #ffd2c6; }
+.gate-lane > strong { color: #ffd2c6; }
+.rollup-box:not(.is-change) .gate-lane { display: none; }
+.rollup-box:not(.is-change) .dimension-lines { display: none; }
+.rollup-box.is-change { border-color: rgba(255,179,159,.72); background: rgba(233,105,71,.12); }
+.rollup-box.is-change .rollup-flow, .rollup-box.is-change .rollup-equation { display: none; }
+.scoreboard.trace-spec .gate-reason,
+.scoreboard.trace-spec .score-badges,
+.scoreboard.trace-spec .breakdown,
+.scoreboard.trace-spec .score-note { display: none; }
+.scoreboard.trace-spec .breakdown .bar-row:not(:first-child) { opacity: .38; }
+.rollup-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+.rollup-step { min-width: 0; border-radius: 8px; padding: 6px; background: rgba(255,255,255,.08); }
+.rollup-step span { display: block; color: rgba(247,251,248,.7); font-size: 8px; font-weight: 850; line-height: 1.25; }
+.rollup-step b { display: block; margin-top: 3px; color: var(--lime); font-size: 10px; white-space: nowrap; }
+.rollup-equation { margin: 0; color: #fff; font-size: 10px; font-weight: 850; line-height: 1.35; overflow-wrap: anywhere; }
+.metric-grid, .field-card-grid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.metric-card, .field-card { min-width: 0; padding: 17px; }
+.metric-card strong { display: block; color: var(--forest); font-size: 29px; line-height: 1; }
+.metric-card h3, .field-card h3 { margin: 9px 0 4px; font-size: 15px; }
+.metric-card p, .field-card p { margin: 0; color: var(--ink-soft); font-size: 11px; }
+.field-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.field-list { margin: 10px 0 0; padding: 0; list-style: none; }
+.field-list li { min-width: 0; padding: 5px 0; border-top: 1px solid var(--line); font-size: 11px; overflow-wrap: anywhere; }
+
+/* spec */
+.filter-bar {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(130px, 1fr)) auto;
+  gap: 9px;
+  padding: 13px;
+  align-items: end;
+}
+.filter-result { min-height: 42px; display: flex; align-items: center; padding: 0 8px; color: var(--forest); font-size: 13px; font-weight: 900; line-height: 1.35; }
+.worksheet-grid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.worksheet-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 15px;
+  background: rgba(251,250,245,.92);
+  box-shadow: var(--shadow-soft);
+}
+.worksheet-card h3 { margin: 6px 0 4px; font-size: 15px; line-height: 1.35; }
+.worksheet-card p { margin: 0; color: var(--ink-soft); font-size: 11px; }
+.worksheet-meta { display: flex; flex-wrap: wrap; gap: 5px; }
+.worksheet-open { align-self: center; white-space: nowrap; }
+.selfcheck { padding: 16px; }
+.check-grid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+.check-row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 22px 52px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 9px;
+  background: #fff;
+  cursor: pointer;
+}
+.check-row input { width: 17px; height: 17px; accent-color: var(--forest); }
+.check-row strong { display: block; font-size: 11px; line-height: 1.4; }
+.selfcheck-score {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  border-radius: 14px;
+  padding: 13px;
+  color: #fff;
+  background: var(--forest);
+}
+.selfcheck-score .big { font-size: 31px; font-weight: 900; line-height: 1; }
+
+/* SOP */
+.coverage-strip {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+.coverage-cell { min-width: 0; border-radius: 13px; padding: 12px; background: rgba(255,255,255,.72); }
+.coverage-cell strong { display: block; font-size: 23px; line-height: 1; }
+.coverage-cell span { color: var(--ink-soft); font-size: 10px; }
+.sop-hero { padding: 22px 28px; }
+.sop-hero h1 { font-size: clamp(32px, 4.6vw, 44px); }
+.sop-hero .hero-lede { margin-top: 8px; font-size: 15px; }
+.sop-hero .hero-aside { padding: 16px; }
+.sop-hero .hero-aside p { margin-top: 8px; font-size: 12px; }
+.sop-hero .coverage-strip { margin-top: 8px; }
+.sop-hero .coverage-cell { padding: 7px 9px; }
+.sop-node-section { margin-top: 14px; }
+.sop-node-section .section-head { margin-bottom: 8px; }
+.sop-node-section .section-head .eyebrow { margin-bottom: 4px; }
+.sop-node-section .section-head h2 { font-size: 27px; }
+.sop-node-section .section-head p { margin-top: 3px; font-size: 12px; }
+.sop-explorer {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(290px, .42fr) minmax(0, .58fr);
+  gap: 12px;
+  align-items: stretch;
+}
+.sop-tree {
+  min-width: 0;
+  max-height: 640px;
+  overflow: auto;
+  padding: 10px;
+}
+.tree-group + .tree-group { margin-top: 11px; }
+.tree-title {
+  position: sticky;
+  top: -10px;
+  z-index: 1;
+  margin: -2px -2px 6px;
+  padding: 7px 8px;
+  color: var(--forest);
+  background: rgba(251,250,245,.96);
+  font-size: 11px;
+  font-weight: 900;
+}
+.node-button {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 7px;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px;
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.node-button:hover, .node-button[aria-selected="true"] { background: var(--lime-soft); }
+.node-button .node-index { color: var(--ink-soft); font-size: 10px; font-weight: 800; }
+.node-button .node-label { min-width: 0; display: grid; gap: 3px; }
+.node-button .node-name { min-width: 0; font-size: 11px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+.node-button .node-pending {
+  width: max-content;
+  max-width: 100%;
+  border-radius: 999px;
+  padding: 2px 6px;
+  color: var(--amber);
+  background: var(--amber-soft);
+  font-size: 11px;
+  font-weight: 850;
+}
+.node-detail {
+  min-width: 0;
+  min-height: 640px;
+  padding: 14px 16px;
+  overflow: hidden;
+}
+.detail-top {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #efd59d;
+  border-radius: 10px;
+  padding: 5px 7px;
+  background: var(--amber-soft);
+}
+.detail-top.is-verified { border-color: #b8d8c6; background: #e7f4ec; }
+.detail-top #detail-sop { margin-left: auto; }
+.node-detail h2 { margin: 8px 0 6px; font-size: clamp(23px, 3vw, 30px); line-height: 1.08; letter-spacing: 0; }
+.validation-contract {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.validation-contract > div { min-width: 0; border-radius: 9px; padding: 6px 7px; background: var(--amber-soft); }
+.validation-contract span { display: block; color: #7b4c0d; font-size: 8px; font-weight: 900; }
+.validation-contract strong { display: block; margin-top: 2px; font-size: 9px; line-height: 1.35; overflow-wrap: anywhere; }
+.source-panel {
+  min-width: 0;
+  margin-top: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 8px;
+  background: #f0f2ed;
+}
+.evidence-summary { min-width: 0; margin-top: 5px; border: 1px solid #ffc5ce; border-radius: 10px; padding: 8px 9px; background: var(--coral-soft); }
+.evidence-summary-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.evidence-summary .label { display: block; color: var(--forest); font-size: 11px; font-weight: 900; letter-spacing: 0; }
+.evidence-summary q {
+  display: -webkit-box;
+  margin-top: 3px;
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 750;
+  line-height: 1.45;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.source-facts {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1.1fr .85fr 1.3fr;
+  gap: 4px;
+  margin-top: 0;
+}
+.source-fact { min-width: 0; border-radius: 8px; padding: 5px 6px; background: #fff; }
+.source-fact .label { display: block; color: var(--ink-soft); font-size: 10px; font-weight: 900; letter-spacing: .04em; }
+.source-fact strong { display: block; margin-top: 2px; font-size: 11.5px; line-height: 1.4; overflow-wrap: anywhere; }
+.source-fact:last-child { grid-column: 1 / -1; display: flex; align-items: center; gap: 7px; }
+.source-fact:last-child .label, .source-fact:last-child strong { display: inline; margin-top: 0; }
+.source-button {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: #fff;
+  background: var(--forest);
+  font-size: 9px;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+}
+.source-disclosure { display: block; min-width: 0; margin-top: 5px; color: var(--ink); font-size: 10px; font-weight: 800; line-height: 1.35; }
+.detail-grid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 6px;
+}
+.detail-cell { min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 6px 8px; background: #fff; }
+.detail-cell .label { display: block; color: var(--ink-soft); font-size: 10px; font-weight: 850; }
+.detail-cell [data-field] { display: block; margin-top: 4px; font-size: 12px; font-weight: 750; overflow-wrap: anywhere; }
+.field-help { display: block; margin-top: 4px; color: var(--ink-soft); font-size: 9px; font-weight: 700; line-height: 1.35; }
+.evidence-details { margin-top: 7px; }
+.evidence-details > summary { color: var(--forest); font-size: 10px; font-weight: 900; cursor: pointer; }
+.hypothesis-note {
+  margin-top: 12px;
+  border-left: 4px solid var(--amber);
+  border-radius: 10px;
+  padding: 11px 12px;
+  color: #67410b;
+  background: var(--amber-soft);
+  font-size: 11px;
+}
+.quote-box {
+  min-width: 0;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--forest);
+  border-radius: 12px;
+  padding: 14px;
+  color: var(--ink);
+  background: #fff;
+}
+.quote-box .label { color: var(--forest); font-size: 11px; font-weight: 900; letter-spacing: 0; }
+.quote-box pre {
+  max-height: 230px;
+  margin: 9px 0 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.source-line { margin: 10px 0 0; color: var(--ink-soft); font-size: 11px; overflow-wrap: anywhere; }
+.adj-wrap { min-width: 0; padding: 14px; overflow: hidden; }
+.adj-tools { display: flex; align-items: end; gap: 9px; margin-bottom: 10px; }
+.adj-tools .field { width: min(260px, 100%); }
+.table-scroll { width: 100%; overflow-x: auto; }
+.adj-table { width: 100%; min-width: 820px; border-collapse: collapse; table-layout: fixed; }
+.adj-table th, .adj-table td { border-bottom: 1px solid var(--line); padding: 9px 8px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.adj-table th { color: var(--ink-soft); background: #eceee7; font-size: 10px; }
+.adj-table td { font-size: 10px; }
+.adj-table th:nth-child(1) { width: 62px; }
+.adj-table th:nth-child(2) { width: 120px; }
+.adj-table th:nth-child(3) { width: 110px; }
+.adj-table th:nth-child(7) { width: 105px; }
+
+@media (max-width: 820px) {
+  .hero, .hub-hero, .calc-layout, .sop-explorer { grid-template-columns: 1fr; }
+  .hero-aside { min-height: auto; }
+  .hub-grid { grid-template-columns: 1fr; }
+  .hub-card { min-height: 0; }
+  .trust-strip { grid-template-columns: 1fr; }
+  .field-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .worksheet-grid, .check-grid { grid-template-columns: 1fr; }
+  .scoreboard { position: relative; top: auto; }
+  .sop-tree { max-height: 360px; }
+  .node-detail { min-height: 0; }
+}
+@media (max-width: 560px) {
+  body { font-size: 14px; }
+  .banner-inner, .shell { width: min(100% - 20px, 1180px); }
+  .banner-inner { min-height: 40px; flex-wrap: wrap; padding: 6px 0; }
+  .banner-note { display: none; }
+  .mobile-security-note {
+    width: 100%;
+    display: block;
+    padding-left: 18px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+  .gate-form { width: 100%; margin-left: 0; }
+  .gate-form input { flex: 1 1 120px; width: auto; }
+  .shell { padding-top: 12px; padding-bottom: 36px; }
+  .topnav { margin-bottom: 10px; }
+  .nav-links { gap: 4px; }
+  .nav-links a { min-height: 30px; padding: 5px 8px; font-size: 10px; }
+  .wordmark { font-size: 10px; }
+  .hero { gap: 14px; border-radius: 20px; padding: 22px; }
+  h1 { font-size: 38px; }
+  .hero-lede { margin-top: 12px; font-size: 14px; }
+  .hub-hero { padding: 17px 20px; }
+  .hub-hero h1 { font-size: 34px; line-height: .96; }
+  .hub-hero .hero-lede { margin-top: 8px; font-size: 12px; line-height: 1.42; }
+  .hub-hero .stat-row { gap: 5px; margin-top: 10px; }
+  .hub-hero .stat-chip { gap: 5px; padding: 5px 8px; font-size: 10px; }
+  .hub-hero .stat-chip strong { font-size: 13px; }
+  .hub-grid { gap: 8px; }
+  .hub-card {
+    grid-template-columns: 38px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 10px;
+    min-height: 100px;
+    padding: 11px 13px;
+  }
+  .hub-card .card-top { display: contents; }
+  .hub-card .card-index { grid-column: 1; grid-row: 1; }
+  .hub-card .card-arrow { display: none; }
+  .hub-card > div:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .hub-card h2 { margin: 0 0 2px; font-size: 17px; }
+  .hub-card p { font-size: 11px; line-height: 1.35; }
+  .hub-card .card-foot {
+    grid-column: 2;
+    grid-row: 2;
+    width: max-content;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 0;
+    border-top: 0;
+    border-radius: 999px;
+    padding: 5px 8px;
+    color: #fff;
+    background: var(--forest);
+    font-size: 10px;
+  }
+  .trust-strip { display: none; }
+  .score-item { grid-template-columns: 34px 52px minmax(0, 1fr); }
+  .score-item .verdict-select { grid-column: 3; }
+  .metric-grid, .field-card-grid { grid-template-columns: 1fr; }
+  .filter-bar { grid-template-columns: 1fr 1fr; }
+  .filter-result { grid-column: 1 / -1; }
+  .worksheet-card { grid-template-columns: 1fr; }
+  .worksheet-open { justify-self: start; }
+  .coverage-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .detail-grid { grid-template-columns: 1fr; }
+  .validation-contract { grid-template-columns: 1fr; }
+  .source-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .source-actions { align-items: flex-start; flex-direction: column; }
+  .group-rollup { grid-template-columns: 1fr; }
+  .group-rollup > div { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; gap: 6px; }
+  .group-rollup strong { margin-top: 0; }
+  .node-detail { padding: 14px; }
+  .adj-tools { align-items: stretch; flex-direction: column; }
+}
+
+/* XHS-inspired product system: one token source, light canvas, white cards, restrained red emphasis. */
+html, body { background: var(--cream); }
+body {
+  background: var(--cream);
+  font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+}
+button, select, textarea, input:not([type="hidden"]) { min-height: 36px; }
+.demo-banner {
+  color: var(--ink);
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 10px rgba(24,24,27,.04);
+}
+.status-dot { background: var(--forest); box-shadow: 0 0 0 5px rgba(255,36,66,.1); }
+.banner-note, .mobile-security-note { color: var(--ink-soft); }
+.shell { width: min(1160px, calc(100% - 32px)); padding-top: 18px; }
+.topnav {
+  position: sticky;
+  z-index: 20;
+  top: 52px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 8px 10px;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 0 0 8px var(--cream), var(--shadow-soft);
+  backdrop-filter: blur(14px);
+}
+.mark { color: #fff; background: var(--forest); }
+.nav-links { gap: 2px; }
+.nav-links a {
+  min-height: 40px;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: transparent;
+}
+.nav-links a[aria-current="page"] {
+  color: var(--forest);
+  border-color: transparent;
+  background: var(--coral-soft);
+  box-shadow: inset 0 -3px 0 var(--forest);
+}
+.hero {
+  grid-template-columns: minmax(0, 1.4fr) minmax(230px, .6fr);
+  border: 1px solid var(--line);
+  padding: clamp(24px, 3.6vw, 38px);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.hero h1 { font-size: clamp(32px, 4.6vw, 44px); line-height: 1.06; letter-spacing: 0; }
+.eyebrow { color: var(--forest); }
+.hero-aside { color: var(--ink); background: var(--coral-soft); }
+.hero-aside .context-label { color: var(--forest); letter-spacing: 0; }
+.hero-aside p { color: var(--ink-soft); }
+.panel, .hub-card, .worksheet-card { background: #fff; }
+.pill-green { color: #18794e; background: #e8f7ef; }
+.pill-blue { color: #4550b5; background: var(--blue-soft); }
+.pill-amber { color: #815300; background: var(--amber-soft); }
+.pill-red { color: var(--red); background: var(--red-soft); }
+.pill-neutral { color: var(--ink-soft); background: #f0f0f3; }
+.button { background: var(--forest); }
+.button:hover { background: var(--forest-2); }
+.button-secondary { color: var(--forest); border-color: #ffc5ce; background: #fff; }
+.button-secondary:hover { background: var(--coral-soft); }
+.field input:focus, .field select:focus, select.control:focus, button:focus-visible, a:focus-visible, summary:focus-visible {
+  outline-color: rgba(255,36,66,.2);
+  border-color: var(--forest);
+}
+.stat-chip { background: #fafafd; }
+
+.gate-stage {
+  width: min(100% - 28px, 560px);
+  min-height: calc(100vh - 58px);
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  padding: 34px 0 64px;
+}
+.gate-card {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(26px, 6vw, 42px);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.gate-logo {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 15px;
+  color: #fff;
+  background: var(--forest);
+  font-weight: 950;
+}
+.gate-card h1 { font-size: clamp(34px, 7vw, 44px); }
+.gate-lede { margin: 10px 0 22px; color: var(--ink-soft); }
+.gate-form { width: 100%; margin: 0; display: grid; gap: 8px; }
+.gate-form label { color: var(--ink-soft); font-size: 12px; font-weight: 850; }
+.gate-actions { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.gate-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 9px 12px;
+  color: var(--ink);
+  background: #fff;
+  font-size: 14px;
+}
+.gate-form input::placeholder { color: #aaaab1; }
+.gate-form button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 18px;
+  color: #fff;
+  background: var(--forest);
+  font-size: 13px;
+}
+.gate-feedback { min-height: 20px; margin: 0; color: var(--red); font-size: 12px; }
+.gate-disclosure { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+.gate-disclosure summary, .trust-disclosure > summary { min-height: 40px; color: var(--ink-soft); font-size: 12px; font-weight: 850; cursor: pointer; }
+.gate-disclosure p { margin: 4px 0 0; color: var(--ink-soft); font-size: 12px; }
+.hub-hero { grid-template-columns: 1fr; color: var(--ink); background: #fff; }
+.hub-hero .eyebrow { color: var(--forest); }
+.hub-hero .hero-lede { color: var(--ink-soft); }
+.hub-card { min-height: 224px; }
+.hub-card:hover { border-color: #ff9aaa; box-shadow: var(--shadow); }
+.hub-card.is-recommended { border-color: #ff9aaa; background: #fff; box-shadow: inset 4px 0 0 var(--forest), var(--shadow); }
+.hub-card:not(.is-recommended) .card-foot {
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  background: #fff;
+}
+.card-index, .card-foot { color: #fff; background: var(--forest); }
+.card-arrow { color: var(--forest); }
+.trust-disclosure { padding: 0 16px 14px; }
+.trust-disclosure > summary { display: flex; align-items: center; }
+.trust-strip { border-color: var(--line); background: var(--line); }
+.trust-item { background: #fff; }
+
+.preset-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+}
+.preset-intro { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.preset-copy { display: grid; gap: 2px; }
+.preset-copy span { color: var(--ink-soft); font-size: 11px; }
+#preset-state.is-custom {
+  width: max-content;
+  max-width: 100%;
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: var(--forest);
+  background: var(--coral-soft);
+  font-weight: 900;
+}
+.preset-reset {
+  flex: 0 0 auto;
+  min-height: 36px;
+  border-color: #ffc5ce;
+  border-radius: 999px;
+  padding: 7px 13px;
+  color: var(--forest);
+  background: #fff;
+  white-space: nowrap;
+}
+.preset-reset:hover { color: var(--forest); background: var(--coral-soft); }
+.preset-buttons { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.preset-button {
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: var(--ink-soft);
+  background: #fff;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+.preset-button[aria-pressed="true"] { color: #fff; border-color: var(--forest); background: var(--forest); }
+.change-receipt {
+  position: sticky;
+  z-index: 4;
+  top: 118px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  border: 1px solid #ff9aaa;
+  border-radius: 12px;
+  padding: 9px 11px;
+  color: var(--ink);
+  background: #fff;
+  box-shadow: inset 4px 0 0 var(--forest), var(--shadow-soft);
+}
+.change-receipt[hidden] { display: none; }
+.change-receipt > span { color: var(--forest); font-size: 11px; font-weight: 900; }
+.change-receipt > strong { min-width: 0; font-size: 12px; line-height: 1.35; overflow-wrap: anywhere; }
+.change-receipt > b {
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: var(--forest);
+  background: var(--coral-soft);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.scoreboard { top: 120px; color: var(--ink); background: #fff; border-color: var(--line); }
+.score-heading { color: var(--forest); letter-spacing: 0; }
+.verdict-trigger {
+  display: grid;
+  gap: 6px;
+  margin: 7px 0 3px;
+  border-radius: 8px;
+  padding: 7px 9px;
+  color: var(--red);
+  background: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+.verdict-trigger[hidden] { display: none; }
+.verdict-jump {
+  min-height: 36px;
+  width: max-content;
+  max-width: 100%;
+  border: 1px solid #ff9aaa;
+  border-radius: 999px;
+  padding: 7px 11px;
+  color: var(--red);
+  background: var(--coral-soft);
+  font: inherit;
+  cursor: pointer;
+}
+.score-item.is-correction-target { outline: 3px solid rgba(255, 32, 71, .28); outline-offset: -3px; }
+.gate-reason, .score-number, .score-unit, .score-label, .score-note, .bar-line,
+.result-cell > span, .result-cell > small, .logic-lane > span, .logic-lane > strong,
+.dimension-line span, .dimension-line strong, .dimension-line .formula-meta,
+.rollup-step span, .rollup-step b, .rollup-equation { color: var(--ink-soft); }
+.verdict-title.is-pass { color: #11613b; border-color: #b9e6ca; background: #e8f7ef; }
+.verdict-title.is-pass .verdict-summary { color: #28724e; }
+.verdict-title.is-fail {
+  color: var(--ink);
+  border-color: var(--line);
+  background: #fff;
+  box-shadow: none;
+}
+.verdict-title.is-fail .verdict-main {
+  width: max-content;
+  max-width: 100%;
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: #fff;
+  background: var(--forest);
+  font-size: 19px;
+}
+.verdict-title.is-fail .verdict-summary { color: var(--ink); }
+.verdict-title.is-fail .verdict-trigger { color: var(--red); background: var(--coral-soft); }
+.verdict-change-chip {
+  width: max-content;
+  max-width: 100%;
+  display: inline-flex;
+  margin: 7px 0 0 7px;
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: var(--forest);
+  background: var(--coral-soft);
+  font-size: 11px;
+  font-weight: 900;
+  vertical-align: middle;
+}
+.verdict-change-chip[hidden] { display: none; }
+.result-cell, .scoreboard.trace-spec .result-cell { border-color: var(--line); background: #fff; }
+.result-cell.is-updated, .scoreboard.trace-spec .result-cell.is-updated {
+  border-color: var(--line-strong);
+  box-shadow: inset 0 0 0 1px var(--line);
+  background: #fff;
+}
+.result-cell.is-gate-fail.is-updated, .scoreboard.trace-spec .result-cell.is-gate-fail.is-updated {
+  border-color: var(--forest);
+  box-shadow: inset 0 0 0 1px var(--forest);
+  background: var(--coral-soft);
+}
+.result-cell > strong, .result-cell .score-number, .dimension-line .formula-equation { color: var(--ink); }
+.result-cell > .result-before, .result-cell > .result-detail { display: none; color: var(--ink-soft); }
+.result-cell > strong, .result-cell .score-number { font-size: 22px; }
+.result-cell#total-cell > strong { font-size: 28px; }
+.result-cell#gate-cell > strong, .result-cell#grade-cell > strong { font-size: 19px; }
+.result-cell.is-gate-pass > strong { color: #18794e; }
+.result-cell.is-gate-fail > strong { color: var(--red); }
+.result-cell.is-grade-fail > strong { color: var(--ink); }
+.scoreboard.trace-spec .result-triad { border-color: var(--line); background: #f7f7fa; }
+.scoreboard.trace-spec.is-result-fail .result-triad { border-color: var(--line); background: #f7f7fa; }
+.result-feedback {
+  order: 4;
+  margin: 7px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: var(--ink-soft);
+  background: #f7f7fa;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+.result-feedback.is-change { border-color: var(--line); background: #f7f7fa; }
+.scoreboard.trace-spec .gate-reason { display: block; }
+.rollup-box, .rollup-step { border-color: var(--line); background: #f7f7fa; }
+.rollup-box.is-change { border-color: #ff9aaa; background: var(--coral-soft); }
+.change-bridge { color: var(--red); background: #ffe2e7; }
+.dimension-line.is-total { border-color: var(--line); }
+.dimension-line.is-total span, .dimension-line.is-total strong, .score-lane > span { color: var(--forest); }
+.gate-lane { border-color: #ffc5ce; }
+.gate-lane > span, .gate-lane > strong { color: var(--red); }
+.bar-track { background: #ececf1; }
+.bar-fill { background: var(--forest); transition: none; }
+.score-badge { color: var(--ink-soft); background: #f0f0f3; }
+.score-badge.is-pass { color: #11613b; background: #dff5e7; }
+.score-badge.is-fail { color: #fff; background: var(--forest); }
+.score-details { order: 5; margin-top: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
+.score-details > summary {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--forest);
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.score-details > summary small { color: var(--ink-soft); font-size: 11px; }
+.score-details-body { padding-bottom: 2px; }
+
+.worksheet-card { grid-template-columns: minmax(0, 1fr); }
+.worksheet-card.is-selected {
+  border-color: #ff9aaa;
+  background: #fff;
+  box-shadow: inset 8px 0 0 var(--forest), 0 0 0 2px rgba(255,36,66,.08);
+}
+.worksheet-actions { display: flex; flex-wrap: wrap; gap: 7px; align-self: end; }
+.worksheet-select, .worksheet-open { min-height: 40px; }
+.worksheet-select[aria-pressed="true"] { color: var(--forest); border-color: #ffc5ce; background: #fff; }
+.selected-workflow { margin-top: 12px; }
+.selected-worksheet {
+  padding: 18px 18px 18px 22px;
+  border-color: var(--line);
+  background: #fff5f7;
+  box-shadow: inset 4px 0 0 var(--forest), var(--shadow-soft);
+}
+.selected-head { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+.selected-head h2 { margin: 2px 0 4px; font-size: 24px; line-height: 1.15; }
+.selected-head p:not(.eyebrow) { margin: 0; color: var(--ink-soft); font-size: 12px; }
+.selected-state { margin-top: 7px !important; color: var(--forest) !important; font-size: 11px !important; font-weight: 900; }
+.selected-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.selected-actions .button { min-height: 40px; }
+.selected-actions #selected-prev, .selected-actions #selected-next {
+  color: var(--ink-soft);
+  border-color: var(--line);
+  background: #fff;
+}
+.selected-actions #selected-open { color: var(--forest); border-color: #ffc5ce; background: #fff; }
+.selfcheck-disclosure { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 8px; }
+.selfcheck-disclosure > summary { min-height: 42px; color: var(--forest); font-size: 13px; font-weight: 900; cursor: pointer; }
+.selfcheck-help { margin: 0 0 8px; color: var(--ink-soft); font-size: 12px; }
+.selfcheck-live { margin: 0 0 10px; border: 1px solid var(--line); border-radius: 12px; padding: 9px 11px; display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #fafafd; }
+.selfcheck-live span { min-width: 0; color: var(--ink-soft); font-size: 11px; font-weight: 800; }
+.selfcheck-live strong { flex: 0 0 auto; color: #18794e; font-size: 12px; }
+.selfcheck-live.is-fail { border-color: #ffc5ce; background: var(--coral-soft); }
+.selfcheck-live.is-fail span, .selfcheck-live.is-fail strong { color: var(--red); }
+.selfcheck { padding: 0; }
+.check-row { grid-template-columns: 36px 52px minmax(0, 1fr) auto; align-items: center; }
+.check-row .item-illustration { width: 52px; height: 52px; }
+.check-row input {
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  margin: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: #fff;
+}
+.check-row input:checked { border-color: #16875d; background: #16875d; }
+.check-row input:checked::after { content: "✓"; display: grid; place-items: center; color: #fff; font-weight: 950; }
+.check-row.is-required-fail {
+  border-color: #ff9aaa;
+  background: var(--coral-soft);
+  box-shadow: none;
+}
+.check-row.is-required-fail input { border-color: var(--forest); background: #fff; }
+.check-row.is-required-fail .pill { color: #fff; border-color: var(--forest); background: var(--forest); }
+.selfcheck-score { color: var(--ink); background: #f7f7fa; }
+
+.tree-group { border: 1px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden; }
+.tree-group + .tree-group { margin-top: 8px; }
+.tree-title {
+  position: static;
+  min-height: 44px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px;
+  color: var(--ink);
+  background: #fafafd;
+  font-size: 11px;
+  cursor: pointer;
+}
+.tree-title span:last-child { flex: 0 0 auto; color: var(--forest); }
+.tree-nodes { padding: 4px; }
+.node-button { min-height: 40px; }
+.node-button:hover { color: var(--red); background: var(--coral-soft); }
+.node-button[aria-selected="true"] {
+  border-radius: 10px;
+  color: var(--red);
+  background: var(--coral-soft);
+  box-shadow: inset 5px 0 0 var(--forest);
+}
+.node-button[aria-selected="true"] .node-index { color: var(--forest); }
+.node-button[aria-selected="true"] .node-pending { color: var(--red); background: #fff; }
+.node-detail { background: #fff; }
+.detail-context {
+  position: static;
+  min-height: 40px;
+  margin: -2px -2px 10px;
+  border-bottom: 1px solid var(--line);
+  padding: 4px 2px 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+}
+.detail-context-copy { min-width: 0; display: grid; gap: 2px; }
+.detail-context-copy span { color: var(--forest); font-size: 11px; font-weight: 900; }
+.detail-context-copy strong { min-width: 0; font-size: 14px; line-height: 1.25; overflow-wrap: anywhere; }
+.detail-context-actions { display: flex; align-items: center; justify-content: flex-end; gap: 7px; }
+.detail-context .machine-token { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.evidence-jump { min-height: 40px; padding: 7px 12px; white-space: nowrap; }
+.primary-answer-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.primary-answer-grid > div { min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 10px; background: #fff; }
+.primary-answer-grid span { display: block; color: var(--ink-soft); font-size: 11px; font-weight: 850; }
+.primary-answer-grid strong { display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
+.primary-answer-grid small { display: block; margin-top: 4px; color: var(--ink-soft); font-size: 11px; line-height: 1.4; }
+.primary-answer-grid .is-conclusion { grid-column: 1 / -1; border-color: #ffc5ce; background: var(--coral-soft); }
+.primary-answer-grid .is-conclusion span { color: var(--forest); }
+.primary-answer-grid .is-conclusion strong { font-size: 15px; }
+.status-value.is-hypothesis { color: var(--amber); }
+.status-value.is-verified { color: #18794e; }
+.node-disclosure { margin-top: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 0 10px 10px; }
+.node-disclosure > summary {
+  min-height: 42px;
+  display: list-item;
+  list-style-position: inside;
+  padding: 11px 2px;
+  color: var(--forest);
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.node-disclosure > summary::marker { color: var(--forest); font-size: 12px; }
+.evidence-details .when-open { display: none; }
+.evidence-details[open] .when-closed { display: none; }
+.evidence-details[open] .when-open { display: inline; }
+.formatted-quote { max-height: 180px; overflow: auto; overscroll-behavior: contain; white-space: pre-wrap; color: var(--ink); font-size: 11px; line-height: 1.65; }
+.source-panel { border: 0; padding: 0; background: transparent; }
+.source-facts { gap: 8px; margin: 0 2px 8px; }
+.source-fact {
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 3px 2px 7px;
+  background: transparent;
+}
+.source-fact:last-child { border-bottom: 0; }
+.evidence-summary { border: 1px solid #ffc5ce; background: var(--coral-soft); }
+.evidence-summary .label { color: var(--forest); }
+.evidence-summary q { color: var(--ink); }
+.quote-box { color: var(--ink); background: #fff; }
+
+.item-group-head span, .group-rollup span, .group-rollup-note, .score-label,
+.result-cell > span, .result-cell > small, .rollup-box, .logic-lane > span,
+.logic-lane > strong, .change-bridge, .dimension-line span, .dimension-line strong,
+.dimension-line .formula-meta, .rollup-step span, .rollup-step b, .rollup-equation,
+.coverage-cell span, .node-button .node-index, .validation-contract span,
+.validation-contract strong, .evidence-summary .label, .source-fact .label,
+.source-button, .source-disclosure, .detail-cell .label, .field-help,
+.evidence-details > summary, .quote-box .label, .source-line, .adj-table th,
+.adj-table td { font-size: 11px !important; }
+[data-testid="spec-filter"] { scroll-margin-top: 220px; }
+.scoreboard { scroll-margin-top: 160px; }
+.sop-explorer { scroll-margin-top: 180px; }
+
+@media (max-width: 820px) {
+  .calc-layout { display: flex; flex-direction: column; }
+  .scoreboard { top: auto; order: -1; width: 100%; }
+  .item-controls { width: 100%; }
+}
+@media (min-width: 821px) {
+  .verdict-change-chip { display: none !important; }
+}
+@media (max-width: 560px) {
+  button, select, textarea, input:not([type="hidden"]) { min-height: 40px; }
+  .banner-inner, .shell { width: min(100% - 20px, 1160px); }
+  .banner-title, .banner-note, .mobile-security-note { font-size: 11px; }
+  .topnav { top: 56px; align-items: stretch; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; padding: 4px; }
+  .wordmark { display: none; }
+  .nav-links { width: 100%; margin-left: 0; flex-wrap: nowrap; justify-content: space-between; }
+  .nav-links a { flex: 1 1 0; min-height: 40px; justify-content: center; padding: 6px 5px; font-size: 11px; white-space: nowrap; }
+  .gate-actions { grid-template-columns: 1fr; }
+  .gate-form { display: grid; }
+  .gate-form input, .gate-form button { width: 100%; min-height: 44px; }
+  .hero, .hub-hero { padding: 20px; }
+  .hero h1, .hub-hero h1 { font-size: 32px; line-height: 1.08; }
+  .hub-hero .hero-lede { font-size: 12px; }
+  .hub-hero .stat-chip { font-size: 11px; }
+  .hub-card .card-foot { font-size: 11px; }
+  .hub-card { min-height: 0; padding: 18px; }
+  .hub-card h2 { margin-top: 13px; }
+  .hub-card .card-foot { margin-top: 12px; }
+  .trust-disclosure .trust-strip { display: grid; }
+  .preset-panel { align-items: stretch; flex-direction: column; }
+  .preset-intro { align-items: center; }
+  .preset-reset { min-height: 40px; }
+  .preset-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .preset-button { width: 100%; min-height: 40px; }
+  .change-receipt { top: 108px; grid-template-columns: auto minmax(0, 1fr); }
+  .change-receipt > b { grid-column: 1 / -1; width: max-content; }
+  .verdict-jump { min-height: 40px; }
+  .result-triad { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+  .result-cell { min-width: 0; padding: 9px 7px; }
+  .result-cell > strong, .result-cell .score-number { font-size: 17px; }
+  .result-cell > small { display: none; }
+  .result-feedback { display: none; }
+  .score-details > summary { min-height: 44px; }
+  .selected-head { flex-direction: column; }
+  .selected-head .button { width: 100%; }
+  .selected-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+  .selected-actions #selected-open { grid-column: 1 / -1; }
+  .worksheet-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .worksheet-actions .button { width: 100%; }
+  .score-item { grid-template-columns: 34px 48px minmax(0, 1fr); }
+  .score-item .item-illustration { width: 48px; height: 48px; }
+  .score-item .verdict-select { grid-column: 3; }
+  .check-row { grid-template-columns: 40px 48px minmax(0, 1fr) auto; }
+  .check-row .item-illustration { width: 48px; height: 48px; }
+  .check-row input { width: 40px; height: 40px; min-height: 40px; }
+  .primary-answer-grid { grid-template-columns: 1fr; }
+  .primary-answer-grid .is-conclusion { grid-column: 1; }
+  .detail-context { position: static; margin-top: 0; }
+  .node-button { min-height: 40px; }
+  .node-disclosure > summary, .tree-title { min-height: 44px; }
+  .table-scroll { overflow: visible; }
+  .adj-table { min-width: 0; display: block; }
+  .adj-table thead { display: none; }
+  .adj-table tbody { display: grid; gap: 10px; }
+  .adj-table tr { display: block; border: 1px solid var(--line); border-radius: 14px; padding: 7px; background: #fff; }
+  .adj-table td { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 8px; border-bottom: 1px solid var(--line); padding: 8px; }
+  .adj-table td:last-child { border-bottom: 0; }
+  .adj-table td::before { content: attr(data-label); color: var(--ink-soft); font-size: 11px; font-weight: 900; }
+}
+</style></head><body><svg class="illustration-defs" aria-hidden="true" width="0" height="0" focusable="false"><symbol id="ill-074e89088291" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>Champion拍摄红线：不要拍到价格签</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><g transform="translate(30 22)"><path d="M5 4h16l11 10-15 15L3 15Z"/><circle cx="11" cy="11" r="2"/><path d="M21 11v13m-5-10h10m-10 6h10"/></g></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><circle cx="48" cy="38" r="27"/><path d="M29 19 67 57" stroke-width="3.5"/></g>
+  <polyline points="78.00,6.00 79.00,7.26 80.00,6.72 81.00,8.52 82.00,7.44 83.00,7.62 84.00,6.00 85.00,7.44 86.00,7.44 87.00,6.36 88.00,7.62 89.00,6.18" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">禁价格签</text>
+</symbol><symbol id="ill-1fc01689ed38" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>一张45度俯拍帽型轮廓特写</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><path d="M15 20h25v18H15z"/><circle cx="27.5" cy="29" r="6"/><path d="M20 20l4-6h9l4 6"/><path d="M45 49c0-10 7-17 17-17 11 0 18 8 18 18"/><path d="M45 49h35c3 0 4 3 1 5-10 5-26 4-37 1-4-1-3-6 1-6Z"/></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><path d="M38 28c9 0 16 4 20 10" stroke-dasharray="3 4"/><path d="m54 34 5 5-7 1"/></g>
+  <polyline points="78.00,6.18 79.00,8.70 80.00,8.16 81.00,6.00 82.00,6.18 83.00,7.08 84.00,7.44 85.00,7.62 86.00,8.52 87.00,8.34 88.00,6.54 89.00,7.44" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">45°俯拍帽型</text>
+</symbol><symbol id="ill-3aa3c5dd0e3b" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>正面全身镜中反射拍摄人物站立</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><path d="M10 31h27v19H10z"/><circle cx="23.5" cy="40.5" r="6"/><path d="M15 31l4-6h9l4 6"/><rect x="49" y="14" width="31" height="51" rx="4"/><circle cx="64.5" cy="27" r="5"/><path d="M64.5 32v15m0-9-8 7m8-7 8 7m-8 2-6 14m6-14 6 14"/><path d="M53 19h23M53 60h23"/></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><path d="M37 39c6-10 11-13 18-12" stroke-dasharray="3 4"/><path d="m51 23 5 4-5 4"/></g>
+  <polyline points="78.00,6.54 79.00,7.80 80.00,7.80 81.00,6.54 82.00,8.16 83.00,6.90 84.00,8.34 85.00,8.34 86.00,6.00 87.00,8.52 88.00,6.54 89.00,7.98" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">全身镜反射</text>
+</symbol><symbol id="ill-6352673bfab3" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>一张侧拍罗纹袖口收紧细节</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><path d="M15 24h28l20 17-12 15-17-14-19 2Z"/><path d="M43 30 34 42M48 34 39 47M53 38 44 51"/><path d="M50 36 64 48 55 61 41 49Z"/><path d="M52 40 43 52m13-8-9 12m13-8-8 11"/><path d="M64 48h16M64 52h16M64 56h16"/></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><path d="M69 38v9m0-9-4 4m4-4 4 4M69 66v-9m0 9-4-4m4 4 4-4"/><path d="M51 36 64 48 55 61 42 49Z" stroke-width="3"/></g>
+  <polyline points="78.00,7.08 79.00,6.54 80.00,6.90 81.00,6.36 82.00,7.08 83.00,7.26 84.00,6.54 85.00,7.98 86.00,8.70 87.00,7.80 88.00,7.98 89.00,6.54" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">侧拍罗纹收口</text>
+</symbol><symbol id="ill-636c6f204a98" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>Champion拍摄红线：不要承诺未经确认的功能效果</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><g transform="translate(30 22)"><path d="M3 4h30v20H17l-7 6v-6H3Z"/><path d="m9 18 5-6 5 3 7-8M23 7h3v3"/></g></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><circle cx="48" cy="38" r="27"/><path d="M29 19 67 57" stroke-width="3.5"/></g>
+  <polyline points="78.00,7.08 79.00,6.54 80.00,7.08 81.00,8.16 82.00,7.08 83.00,8.70 84.00,6.36 85.00,6.00 86.00,6.72 87.00,7.80 88.00,7.62 89.00,7.44" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">禁虚假承诺</text>
+</symbol><symbol id="ill-786be4c5d879" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>一张平拍前置拉链闭合状态特写</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><g transform="translate(17 24) scale(1.05)"><path d="M8 3h20l3 27H5Z"/><path d="M18 3v27"/><path d="M14 7h4m0 4h4m-8 4h4m0 4h4m-8 4h4"/></g><circle cx="65" cy="40" r="12"/><path d="m73 49 9 10"/></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><path d="M60 40h10M65 35v10"/></g>
+  <polyline points="78.00,7.26 79.00,7.44 80.00,7.08 81.00,7.98 82.00,8.52 83.00,6.72 84.00,8.16 85.00,6.90 86.00,8.34 87.00,7.44 88.00,7.26 89.00,7.62" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">拉链闭合</text>
+</symbol><symbol id="ill-88e346a96997" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>封面展示灰色卫衣完整叠穿效果</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><path d="M14 19v-8h9M82 19v-8h-9M14 60v9h9M82 60v9h-9"/><circle cx="48" cy="20" r="5"/><path d="m34 32 14-7 14 7 10 12-7 6-5-8v22H36V42l-5 8-7-6Z" fill="#fff0f3"/><path d="M40 28c1 8 15 8 16 0M43 29l5 7 5-7"/><path d="M39 60h18v8H39zM36 56h24M41 64h14"/><path d="M30 43h8m20 0h8"/></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><path d="M40 28c1 8 15 8 16 0" stroke-width="3"/><path d="M39 60h18v8H39"/><path d="M19 16h8m-8 0v8M77 64h-8m8 0v-8"/></g>
+  <polyline points="78.00,7.44 79.00,7.44 80.00,8.52 81.00,6.54 82.00,6.72 83.00,7.08 84.00,7.80 85.00,7.62 86.00,7.08 87.00,7.62 88.00,7.62 89.00,7.26" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">卫衣叠穿全貌</text>
+</symbol><symbol id="ill-b70a77b75717" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>Champion拍摄红线：不要使用夸大保暖功效的话术</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><path d="M20 21h56v34H50l-10 8v-8H20Z"/><path d="M31 29v14a7 7 0 1 0 8 0V29a4 4 0 0 0-8 0Z"/><path d="M35 34v13M31 47h8"/><path d="M56 49c-6-5 1-10 0-18 8 4 12 12 8 18-2 4-6 5-8 0Z"/><path d="m60 27 3-5 3 5m-3-5v11"/></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><circle cx="48" cy="38" r="27"/><path d="M29 19 67 57" stroke-width="3.5"/></g>
+  <polyline points="78.00,7.98 79.00,7.26 80.00,6.00 81.00,7.80 82.00,7.26 83.00,7.26 84.00,7.98 85.00,7.26 86.00,6.90 87.00,7.26 88.00,6.18 89.00,7.26" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">禁夸大保暖</text>
+</symbol><symbol id="ill-cb4fa7e54c66" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>在门店试衣镜前拍摄早八通勤场景</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><rect x="14" y="16" width="31" height="47" rx="3"/><circle cx="29.5" cy="29" r="5"/><path d="M29.5 34v14m0-8-7 6m7-6 7 6m-7 2-6 12m6-12 6 12"/><circle cx="68" cy="28" r="12"/><path d="M68 20v8l-6 4"/><path d="M57 52h22v10H57zM62 52v-3c0-5 12-5 12 0v3"/></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><path d="M68 20v8l-6 4" stroke-width="3"/></g>
+  <polyline points="78.00,8.16 79.00,7.98 80.00,6.72 81.00,8.70 82.00,7.80 83.00,7.26 84.00,8.52 85.00,6.90 86.00,6.72 87.00,8.16 88.00,7.08 89.00,7.08" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">早八镜前通勤</text>
+</symbol><symbol id="ill-d5f4c64f9827" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>Champion拍摄红线：不要出现其他品牌logo</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><rect x="19" y="22" width="58" height="36" rx="6"/><circle cx="25" cy="28" r="1"/><circle cx="71" cy="28" r="1"/><path d="M25 53h46"/><g transform="translate(29 30) scale(1.4)"><rect x="0" y="0" width="27" height="15" rx="3"/><path d="M5 3v9h4c5 0 5-5 0-5H5m4 0c4 0 4-4 0-4H5"/><path d="m20 3 1.4 2.8 3.1.5-2.3 2.2.5 3.2-2.7-1.5-2.8 1.5.6-3.2-2.3-2.2 3.1-.5Z"/></g></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><circle cx="48" cy="38" r="27"/><path d="M29 19 67 57" stroke-width="3.5"/></g>
+  <polyline points="78.00,8.34 79.00,6.90 80.00,8.70 81.00,6.72 82.00,8.16 83.00,7.08 84.00,6.72 85.00,8.70 86.00,7.62 87.00,7.44 88.00,6.36 89.00,7.26" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">禁竞品标识</text>
+</symbol><symbol id="ill-f26d961cf0fa" viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round"><title>导购本人出镜</title>
+  <rect x="1" y="1" width="94" height="94" rx="16" fill="#fff9fa" stroke="#f1dfe3"/>
+  <path d="M12 74h72" stroke="#ead8dc" stroke-width="1"/>
+  <g fill="none" stroke="#2a2a33" stroke-width="2.2"><path d="M18 19v-7h8M78 19v-7h-8M18 57v8h8M78 57v8h-8"/><g transform="translate(30 22) scale(1.1)"><circle cx="18" cy="5" r="4"/><path d="M18 9v10m0-6-8 5m8-5 8 5m-8 1-6 11m6-11 6 11"/></g></g>
+  <g fill="none" stroke="#ff2442" stroke-width="2.4"><circle cx="48" cy="25" r="7"/></g>
+  <polyline points="78.00,8.70 79.00,6.36 80.00,7.08 81.00,8.34 82.00,7.62 83.00,7.08 84.00,6.18 85.00,8.16 86.00,8.70 87.00,6.00 88.00,8.70 89.00,7.80" fill="none" stroke="#ff2442" stroke-width=".7" opacity=".28"/>
+  <text x="48" y="87" fill="#2a2a33" stroke="none" font-family="sans-serif" font-size="8.2" font-weight="700" text-anchor="middle">导购出镜</text>
+</symbol></svg><header class="demo-banner" data-testid="demo-banner"><div class="banner-inner"><span class="status-dot" aria-hidden="true"></span><strong class="banner-title">演示环境 · 校准仿真样本 · 非生产数据</strong><span class="banner-note">ⓘ 演示口令不是访问控制 · 仅用于减少误触</span><span class="mobile-security-note">ⓘ 演示口令不是访问控制 · 仅用于减少误触</span></div></header><main class="shell"><nav class="topnav"><a class="wordmark" href="../index.html"><span class="mark">BB</span><span>BrandBrain 演示中心</span></a><div class="nav-links"><a href="../index.html">演示首页</a><a href="../eval/index.html" aria-current="page">评分判定</a><a href="../spec/index.html">拍摄作业单</a><a href="../sop/index.html">流程追溯</a></div></nav><section class="hero eval-hero"><div class="hero-copy"><p class="eyebrow">01 · 评分判定</p><h1>评分判定，<br>每一分都能拆开看。</h1><p class="hero-lede">把每条拍摄要求拨成“命中 / 部分 / 未命中 / 转人工”，右侧会实时重算总分、分级和过闸结果。</p><div class="stat-row"><span class="stat-chip"><strong>60%</strong> 拍摄要求命中</span><span class="stat-chip"><strong>15%</strong> 素材质量</span><span class="stat-chip"><strong>15%</strong> 内容一致</span><span class="stat-chip"><strong>10%</strong> 合规</span></div></div><aside class="hero-aside"><span class="context-label">演示样本</span><strong>711001</strong><p>灰色连帽卫衣早八通勤叠穿图文</p><p>必过门由 6 条“必过项”组成；全部命中且总分达到 75，才会通过。</p></aside></section><section class="section eval-calc-section"><div class="section-head"><div><p class="eyebrow">评分判定 · 实时演示</p><h2>拨动判定，观察分数怎么变</h2><p>两条白话规则：计分项选“转人工”会暂时移出平均分；第 8–11 项虽不加分，未命中仍直接判未通过。</p></div></div><div class="preset-panel panel" data-testid="eval-presets"><div class="preset-intro"><div class="preset-copy"><strong>演示快捷切换</strong><span>仅用于快速演示；正式操作请拨动下方条目</span><span id="preset-state" aria-live="polite">快捷场景：全命中</span></div><button class="button button-secondary preset-reset" type="button" id="eval-reset">恢复全命中</button></div><div class="preset-buttons"><button class="preset-button" type="button" data-preset="all-hit" aria-pressed="true">模拟全部命中</button><button class="preset-button" type="button" data-preset="required-block" aria-pressed="false">模拟必过项失败</button><button class="preset-button" type="button" data-preset="score-edge" aria-pressed="false">模拟 74 分边界</button><button class="preset-button" type="button" data-preset="manual-review" aria-pressed="false">模拟转人工</button></div></div><div class="calc-layout" data-testid="eval-calc"><div class="panel item-controls"><div class="change-receipt" id="change-receipt" hidden aria-live="polite"><span>刚刚修改</span><strong id="change-receipt-item"></strong><b id="change-receipt-delta"></b></div><section class="item-group" data-item-group="spec"><div class="item-group-head"><strong>拍摄要求计分项</strong><span>7 条 · 进入 60% 维度</span></div><article class="score-item" data-item-ref="1"><span class="seq">01</span><svg class="item-illustration" data-ill-key="cb4fa7e54c66" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-cb4fa7e54c66"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>在门店试衣镜前拍摄早八通勤场景</strong><div class="item-meta"><span class="pill pill-red">必过项</span><span class="pill pill-green">满分 5</span><span class="pill item-points" data-score-for="1">本项 5.0 / 5</span><span class="machine-token">scene</span></div></div><select class="control verdict-select" data-item-ref="1" aria-label="条目 1 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="2"><span class="seq">02</span><svg class="item-illustration" data-ill-key="88e346a96997" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-88e346a96997"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>封面展示灰色卫衣完整叠穿效果</strong><div class="item-meta"><span class="pill pill-red">必过项</span><span class="pill pill-green">满分 5</span><span class="pill item-points" data-score-for="2">本项 5.0 / 5</span><span class="machine-token">composition</span></div></div><select class="control verdict-select" data-item-ref="2" aria-label="条目 2 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="3"><span class="seq">03</span><svg class="item-illustration" data-ill-key="3aa3c5dd0e3b" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-3aa3c5dd0e3b"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>正面全身镜中反射拍摄人物站立</strong><div class="item-meta"><span class="pill pill-blue">加分项</span><span class="pill pill-green">满分 5</span><span class="pill item-points" data-score-for="3">本项 5.0 / 5</span><span class="machine-token">angle</span></div></div><select class="control verdict-select" data-item-ref="3" aria-label="条目 3 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="4"><span class="seq">04</span><svg class="item-illustration" data-ill-key="1fc01689ed38" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-1fc01689ed38"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>一张45度俯拍帽型轮廓特写</strong><div class="item-meta"><span class="pill pill-blue">加分项</span><span class="pill pill-green">满分 5</span><span class="pill item-points" data-score-for="4">本项 5.0 / 5</span><span class="machine-token">subject</span></div></div><select class="control verdict-select" data-item-ref="4" aria-label="条目 4 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="5"><span class="seq">05</span><svg class="item-illustration" data-ill-key="786be4c5d879" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-786be4c5d879"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>一张平拍前置拉链闭合状态特写</strong><div class="item-meta"><span class="pill pill-blue">加分项</span><span class="pill pill-green">满分 5</span><span class="pill item-points" data-score-for="5">本项 5.0 / 5</span><span class="machine-token">subject</span></div></div><select class="control verdict-select" data-item-ref="5" aria-label="条目 5 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="6"><span class="seq">06</span><svg class="item-illustration" data-ill-key="6352673bfab3" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-6352673bfab3"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>一张侧拍罗纹袖口收紧细节</strong><div class="item-meta"><span class="pill pill-blue">加分项</span><span class="pill pill-green">满分 5</span><span class="pill item-points" data-score-for="6">本项 5.0 / 5</span><span class="machine-token">subject</span></div></div><select class="control verdict-select" data-item-ref="6" aria-label="条目 6 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="7"><span class="seq">07</span><svg class="item-illustration" data-ill-key="f26d961cf0fa" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-f26d961cf0fa"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>导购本人出镜</strong><div class="item-meta"><span class="pill pill-blue">加分项</span><span class="pill pill-green">满分 5</span><span class="pill item-points" data-score-for="7">本项 5.0 / 5</span><span class="machine-token">wardrobe</span></div></div><select class="control verdict-select" data-item-ref="7" aria-label="条目 7 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><div class="group-rollup"><div><span>条目小计</span><strong id="spec-subtotal-left">35.00 / 35.00</strong></div><div><span>维度折算</span><strong id="spec-rate-left">100.00%</strong></div><div><span>总分贡献</span><strong id="spec-contribution-left">60.00 / 60.00</strong></div><p class="group-rollup-note" id="spec-excluded-left">0 项剔除分母</p></div></section><section class="item-group" data-item-group="redline"><div class="item-group-head"><strong>合规红线 · 必过项</strong><span>4 条 · 属于必过门 · 0 权重</span></div><article class="score-item" data-item-ref="8"><span class="seq">08</span><svg class="item-illustration" data-ill-key="636c6f204a98" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-636c6f204a98"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>Champion拍摄红线：不要承诺未经确认的功能效果</strong><div class="item-meta"><span class="pill pill-red">必过项</span><span class="pill pill-green">0 分 · 只判必过门</span><span class="pill item-points" data-score-for="8">本项 0.0 / 0</span><span class="machine-token">compliance</span></div></div><select class="control verdict-select" data-item-ref="8" aria-label="条目 8 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="9"><span class="seq">09</span><svg class="item-illustration" data-ill-key="074e89088291" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-074e89088291"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>Champion拍摄红线：不要拍到价格签</strong><div class="item-meta"><span class="pill pill-red">必过项</span><span class="pill pill-green">0 分 · 只判必过门</span><span class="pill item-points" data-score-for="9">本项 0.0 / 0</span><span class="machine-token">compliance</span></div></div><select class="control verdict-select" data-item-ref="9" aria-label="条目 9 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="10"><span class="seq">10</span><svg class="item-illustration" data-ill-key="d5f4c64f9827" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-d5f4c64f9827"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>Champion拍摄红线：不要出现其他品牌logo</strong><div class="item-meta"><span class="pill pill-red">必过项</span><span class="pill pill-green">0 分 · 只判必过门</span><span class="pill item-points" data-score-for="10">本项 0.0 / 0</span><span class="machine-token">compliance</span></div></div><select class="control verdict-select" data-item-ref="10" aria-label="条目 10 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><article class="score-item" data-item-ref="11"><span class="seq">11</span><svg class="item-illustration" data-ill-key="b70a77b75717" aria-hidden="true" viewBox="0 0 96 96"><use href="#ill-b70a77b75717"/><rect x="8" y="77" width="80" height="17" rx="6" fill="#fff9fa"/></svg><div class="item-copy"><strong>Champion拍摄红线：不要使用夸大保暖功效的话术</strong><div class="item-meta"><span class="pill pill-red">必过项</span><span class="pill pill-green">0 分 · 只判必过门</span><span class="pill item-points" data-score-for="11">本项 0.0 / 0</span><span class="machine-token">compliance</span></div></div><select class="control verdict-select" data-item-ref="11" aria-label="条目 11 判定"><option value="hit">命中</option><option value="partial">部分命中</option><option value="miss">未命中</option><option value="needs_human">转人工</option></select></article><div class="group-rollup"><div><span>必过项小计</span><strong id="redline-subtotal-left">4 / 4 命中</strong></div><div><span>维度折算</span><strong>不适用 · 0 权重</strong></div><div><span>总分贡献</span><strong id="redline-gate-left">0.00 · 必过门通过</strong></div><p class="group-rollup-note">右侧“合规 10 分”来自素材违规标记，不由这些红线条目累加。</p></div></section></div><aside class="panel scoreboard" aria-live="polite"><p class="score-heading">评分判定 · 最终结论</p><strong class="verdict-title is-pass" data-testid="gate-pass" data-pass="true"><span class="verdict-main" id="verdict-main">最终结果：通过</span><span class="verdict-change-chip" id="verdict-change-chip" hidden></span><span class="verdict-trigger" id="verdict-trigger" hidden><span id="verdict-trigger-text"></span><button class="verdict-jump" id="verdict-trigger-jump" type="button" hidden>返回致因条目修正</button></span><span class="verdict-summary" id="verdict-summary">算分 100.00 → 必过项全部命中 → 分级 A 生效</span></strong><p class="gate-reason" id="gate-reason">必过项全部命中。</p><div class="result-triad"><div class="result-cell" id="total-cell"><span>总分</span><small class="result-before" id="total-before">基线状态</small><strong class="score-number" data-testid="eval-total" data-total="100">100.00</strong><small class="result-detail" id="total-delta">满分 100；不覆盖必过门</small></div><div class="result-cell is-gate-pass" id="gate-cell"><span>必过门</span><small class="result-before" id="triad-gate-before">基线状态</small><strong id="triad-gate">通过</strong><small class="result-detail" id="triad-gate-cause">必过项已全命中</small></div><div class="result-cell" id="grade-cell"><span>分级</span><small class="result-before" id="grade-before">基线状态</small><strong data-testid="eval-grade" data-grade="A">已生效</strong><small class="result-detail" id="grade-reference">等级 A</small></div></div><p class="result-feedback" id="result-feedback">基线状态｜总分 100.00 · 必过门通过 · 分级 A 生效</p><details class="score-details"><summary><span>查看计分拆解</span><small>条目 → 维度 → 总分</small></summary><div class="score-details-body"><div class="rollup-box" id="rollup-box"><div class="logic-lane score-lane"><span>分数怎么算</span><strong id="change-trace">条目小计 → 维度折算 → 总分贡献</strong><b class="change-bridge" id="change-bridge"></b><div class="dimension-lines"><div class="dimension-line is-primary"><span>① 拍摄要求（7 项）</span><strong id="trace-dim-spec"><span class="formula-meta" id="trace-dim-spec-meta">已得 35.00 · 可计满分 35.00 · 权重 60% · 维度得分 60.00</span><span class="formula-equation" id="trace-dim-spec-equation">复算：35.00 ÷ 35.00 × 60 = 60.00</span></strong></div><div class="dimension-line"><span>② 素材质量</span><strong id="trace-dim-quality">100% × 15 = 15.00</strong></div><div class="dimension-line"><span>③ 内容一致</span><strong id="trace-dim-content">100% × 15 = 15.00</strong></div><div class="dimension-line"><span>④ 合规观测</span><strong id="trace-dim-compliance">100% × 10 = 10.00</strong></div><div class="dimension-line is-total"><span>四维总分</span><strong id="trace-dim-total">60.00 + 15.00 + 15.00 + 10.00 = 100.00</strong></div></div></div><div class="logic-lane gate-lane"><span id="gate-trace-label">门槛判定 · 不参与加总</span><strong id="gate-trace">—</strong></div><div class="rollup-flow"><div class="rollup-step"><span>01 · 条目小计</span><b id="rollup-subtotal">35.00 / 35.00</b></div><div class="rollup-step"><span>02 · 拍摄要求命中率</span><b id="rollup-rate">100.00%</b></div><div class="rollup-step"><span>03 · 60% 贡献</span><b id="rollup-spec">60.00 / 60.00</b></div></div><p class="rollup-equation" id="formula-line">60.00 + 15.00 + 15.00 + 10.00 = 100.00</p></div><div class="score-badges"><span class="score-badge" id="human-state">人工复核：未触发</span></div><div class="breakdown"><div class="bar-row"><div class="bar-line"><span>拍摄要求小计 → 60%</span><strong id="dim-spec">60.00 / 60</strong></div><div class="bar-track"><div class="bar-fill" id="bar-spec"></div></div></div><div class="bar-row"><div class="bar-line"><span>素材质量观测 → 15%</span><strong id="dim-quality">15.00 / 15</strong></div><div class="bar-track"><div class="bar-fill" id="bar-quality"></div></div></div><div class="bar-row"><div class="bar-line"><span>内容一致观测 → 15%</span><strong id="dim-content">15.00 / 15</strong></div><div class="bar-track"><div class="bar-fill" id="bar-content"></div></div></div><div class="bar-row"><div class="bar-line"><span>素材违规标记 → 10%</span><strong id="dim-compliance">10.00 / 10</strong></div><div class="bar-track"><div class="bar-fill" id="bar-compliance"></div></div></div></div><p class="score-note" id="score-explain">分数门与必过门并行判断。</p></div></details></aside></div></section><section class="section"><div class="section-head"><div><p class="eyebrow">校准目标</p><h2>不是追求“看起来聪明”，而是三件可校准的事</h2></div></div><div class="metric-grid"><article class="panel metric-card"><strong>≥80%</strong><h3>人机一致率</h3><p>机器与人工对同一批样本的判断应大体同向。</p></article><article class="panel metric-card"><strong>≤5%</strong><h3>必过误杀率</h3><p>真正合格的必过项，不应被系统频繁误拦。</p></article><article class="panel metric-card"><strong>≤30%</strong><h3>SPEC 编辑量</h3><p>人工需要改写或补充的条目比例要可控。</p></article></div></section><section class="section"><div class="section-head"><div><p class="eyebrow">样本采集</p><h2>一条样本要带哪些依据</h2><p>字段来自 A1 采样要求与 A2 枚举契约；分组只为演示阅读。</p></div></div><div class="field-card-grid"><article class="panel field-card"><span class="pill pill-blue">采样字段</span><h3>任务回链</h3><p>由 A1/A2 契约整理</p><ul class="field-list"><li><span class="machine-token">source_task_id</span><br>上游 b_task 主键；用于回链生成该样本的 shooting SPEC。</li><li><span class="machine-token">source_note_id</span><br>上游 b_note 主键；用于对齐管线结果。</li></ul></article><article class="panel field-card"><span class="pill pill-blue">采样字段</span><h3>原始任务文本</h3><p>由 A1/A2 契约整理</p><ul class="field-list"><li><span class="machine-token">require_original</span><br>任务 Require 原文，不得改写或摘要。</li><li><span class="machine-token">notice_original</span><br>任务 Notice 原文，不得改写或摘要。</li><li><span class="machine-token">prompt_original</span><br>任务 Prompt 原文，不得改写或摘要。</li></ul></article><article class="panel field-card"><span class="pill pill-blue">采样字段</span><h3>商品依据</h3><p>由 A1/A2 契约整理</p><ul class="field-list"><li><span class="machine-token">product_selling_points</span><br>商品卖点原文；与 product_image_refs 至少提供一类。</li><li><span class="machine-token">product_image_refs</span><br>包内商品图引用；与 product_selling_points 至少提供一类。</li></ul></article><article class="panel field-card"><span class="pill pill-blue">采样字段</span><h3>图文封面</h3><p>由 A1/A2 契约整理</p><ul class="field-list"><li><span class="machine-token">note_type</span><br>笔记格式；决定 cover_only 或三段视频素材的 intake 要求。</li><li><span class="machine-token">cover_ref</span><br>图文任务发布后抓回的封面素材引用。</li></ul></article><article class="panel field-card"><span class="pill pill-blue">采样字段</span><h3>视频三段</h3><p>由 A1/A2 契约整理</p><ul class="field-list"><li><span class="machine-token">video_segment_refs</span><br>视频任务 opening/work_description/closing 三段真实素材引用。</li><li><span class="machine-token">collected_at</span><br>样本收集时间；真实校准优先近 60 天。</li></ul></article></div></section><p class="footer-note">这是校准仿真样本。页面计算与白盒评分模块使用同一组参数与公式。</p></main><script id="eval-data" type="application/json">{"calibration":{"enums":[{"field":"category","source":"shooting-spec.schema.json #/$defs/SpecItem/properties/category/enum","values":["subject","scene","angle","action","wardrobe","prop","lighting","composition","script","compliance"]},{"field":"evidence_type","source":"shooting-spec.schema.json #/$defs/SpecItem/properties/evidence_type/enum","values":["photo","video_frame","video_audio","text"]},{"field":"check_method","source":"shooting-spec.schema.json #/$defs/SpecItem/properties/check_method/enum","values":["vlm_auto","vlm_assist","manual","none"]},{"field":"verdict","source":"evaluation-result.schema.json #/properties/item_scores/items/properties/verdict/enum","values":["hit","partial","miss","not_applicable","needs_human"]},{"field":"hook_type","source":"research/11 第 92 行显式示例词表","values":["明星同款","痛点","稀缺","活动"]},{"field":"scene","source":"research/11 第 93 行显式示例词表","values":["通勤","约会","演唱会","球赛","门店试穿"]},{"field":"persona_signal","source":"research/11 persona_profiles 显式基础资料词表","values":["身高","体型","年龄","城市","门店"]}],"field_groups":[{"fields":[{"field":"source_task_id","note":"上游 b_task 主键；用于回链生成该样本的 shooting SPEC。","requirement":"必填","type":"integer"},{"field":"source_note_id","note":"上游 b_note 主键；用于对齐管线结果。","requirement":"必填","type":"integer"}],"title":"任务回链"},{"fields":[{"field":"require_original","note":"任务 Require 原文，不得改写或摘要。","requirement":"必填","type":"string"},{"field":"notice_original","note":"任务 Notice 原文，不得改写或摘要。","requirement":"必填","type":"string"},{"field":"prompt_original","note":"任务 Prompt 原文，不得改写或摘要。","requirement":"必填","type":"string"}],"title":"原始任务文本"},{"fields":[{"field":"product_selling_points","note":"商品卖点原文；与 product_image_refs 至少提供一类。","requirement":"条件必填","type":"array"},{"field":"product_image_refs","note":"包内商品图引用；与 product_selling_points 至少提供一类。","requirement":"条件必填","type":"array"}],"title":"商品依据"},{"fields":[{"field":"note_type","note":"笔记格式；决定 cover_only 或三段视频素材的 intake 要求。","requirement":"必填","type":"string"},{"field":"cover_ref","note":"图文任务发布后抓回的封面素材引用。","requirement":"条件必填","type":"LocalReference"}],"title":"图文封面"},{"fields":[{"field":"video_segment_refs","note":"视频任务 opening/work_description/closing 三段真实素材引用。","requirement":"条件必填","type":"VideoSegmentReferences"},{"field":"collected_at","note":"样本收集时间；真实校准优先近 60 天。","requirement":"必填","type":"string"}],"title":"视频三段"}],"fields":[{"field":"sample_id","note":"校准包内稳定且唯一的样本 ID。","requirement":"必填","type":"string"},{"field":"source_task_id","note":"上游 b_task 主键；用于回链生成该样本的 shooting SPEC。","requirement":"必填","type":"integer"},{"field":"source_note_id","note":"上游 b_note 主键；用于对齐管线结果。","requirement":"必填","type":"integer"},{"field":"brand","note":"品牌业务名；不得以数据库或 host slug 代替。","requirement":"必填","type":"string"},{"field":"host_slug","note":"上游 host slug；champion 必须映射为 kos。","requirement":"必填","type":"string"},{"field":"note_type","note":"笔记格式；决定 cover_only 或三段视频素材的 intake 要求。","requirement":"必填","type":"string"},{"field":"quality_bucket","note":"采样分布标签：TOP 高效、middle 中间态或 low 低效样本。","requirement":"必填","type":"string"},{"field":"require_original","note":"任务 Require 原文，不得改写或摘要。","requirement":"必填","type":"string"},{"field":"notice_original","note":"任务 Notice 原文，不得改写或摘要。","requirement":"必填","type":"string"},{"field":"prompt_original","note":"任务 Prompt 原文，不得改写或摘要。","requirement":"必填","type":"string"},{"field":"source_type","note":"样本来源类型，例如 client_export 或 synthetic_fixture；用于追溯采集路径。","requirement":"必填","type":"string"},{"field":"product_selling_points","note":"商品卖点原文；与 product_image_refs 至少提供一类。","requirement":"条件必填","type":"array"},{"field":"product_image_refs","note":"包内商品图引用；与 product_selling_points 至少提供一类。","requirement":"条件必填","type":"array"},{"field":"video_segment_refs","note":"视频任务 opening/work_description/closing 三段真实素材引用。","requirement":"条件必填","type":"VideoSegmentReferences"},{"field":"cover_ref","note":"图文任务发布后抓回的封面素材引用。","requirement":"条件必填","type":"LocalReference"},{"field":"collected_at","note":"样本收集时间；真实校准优先近 60 天。","requirement":"必填","type":"string"}]},"content_match":{"score":1.0},"evidence_scope":"full","excluded":["needs_human","not_applicable"],"items":[{"category":"scene","check_method":"vlm_auto","evidence_type":"photo","illustration":"cb4fa7e54c66","required":true,"requirement":"在门店试衣镜前拍摄早八通勤场景","seq":1,"weight":5},{"category":"composition","check_method":"vlm_auto","evidence_type":"photo","illustration":"88e346a96997","required":true,"requirement":"封面展示灰色卫衣完整叠穿效果","seq":2,"weight":5},{"category":"angle","check_method":"vlm_auto","evidence_type":"photo","illustration":"3aa3c5dd0e3b","required":false,"requirement":"正面全身镜中反射拍摄人物站立","seq":3,"weight":5},{"category":"subject","check_method":"vlm_auto","evidence_type":"photo","illustration":"1fc01689ed38","required":false,"requirement":"一张45度俯拍帽型轮廓特写","seq":4,"weight":5},{"category":"subject","check_method":"vlm_auto","evidence_type":"photo","illustration":"786be4c5d879","required":false,"requirement":"一张平拍前置拉链闭合状态特写","seq":5,"weight":5},{"category":"subject","check_method":"vlm_auto","evidence_type":"photo","illustration":"6352673bfab3","required":false,"requirement":"一张侧拍罗纹袖口收紧细节","seq":6,"weight":5},{"category":"wardrobe","check_method":"manual","evidence_type":"photo","illustration":"f26d961cf0fa","required":false,"requirement":"导购本人出镜","seq":7,"weight":5},{"category":"compliance","check_method":"manual","evidence_type":"photo","illustration":"636c6f204a98","required":true,"requirement":"Champion拍摄红线：不要承诺未经确认的功能效果","seq":8,"weight":0},{"category":"compliance","check_method":"manual","evidence_type":"photo","illustration":"074e89088291","required":true,"requirement":"Champion拍摄红线：不要拍到价格签","seq":9,"weight":0},{"category":"compliance","check_method":"manual","evidence_type":"photo","illustration":"d5f4c64f9827","required":true,"requirement":"Champion拍摄红线：不要出现其他品牌logo","seq":10,"weight":0},{"category":"compliance","check_method":"manual","evidence_type":"photo","illustration":"b70a77b75717","required":true,"requirement":"Champion拍摄红线：不要使用夸大保暖功效的话术","seq":11,"weight":0}],"kind":"eval","observations":[{"compliance_flags":[],"quality":{"exposure":"good","sharpness":"sharp","watermark":false}}],"params":{"confidence_floor":0.6,"cover_only_content_match_multiplier":0.5,"dim_weights":{"asset_quality":0.15,"compliance":0.1,"content_match":0.15,"spec_hit":0.6},"gate_threshold":75,"grade_thresholds":{"A":85,"B":70,"C":55},"quality_map":{"exposure":{"acceptable":0.7,"backlit":0.4,"good":1.0,"over":0.4,"under":0.4},"sharpness":{"acceptable":0.6,"blurry":0.2,"sharp":1.0},"watermark":{"false":1.0,"true":0.0}},"verdict_multipliers":{"hit":1.0,"miss":0.0,"partial":0.5},"vl_failure_rate_limit":0.2},"schema_enums":{"brand":["champion","staccato","joypeace","johnson"],"category":["subject","scene","angle","action","wardrobe","prop","lighting","composition","script","compliance"],"check_method":["vlm_auto","vlm_assist","manual","none"],"evidence_type":["photo","video_frame","video_audio","text"],"note_type":["image_text","video"],"quality_bucket":["TOP","middle","low"],"verdict":["hit","partial","miss","not_applicable","needs_human"]},"verdict_labels":{"hit":"命中","miss":"未命中","needs_human":"转人工","partial":"部分命中"},"vl_failure_rate":0.0,"worksheet":{"brand":"champion","id":"711001","title":"灰色连帽卫衣早八通勤叠穿图文"}}</script><script>
+(function () {
+  "use strict";
+  function roundTo(value, digits) {
+    var power = Math.pow(10, digits);
+    return Math.round((Number(value) + 1e-12) * power) / power;
+  }
+  function qualityScore(observation, params) {
+    var quality = (observation && observation.quality) || {};
+    var map = params.quality_map;
+    var parts = [];
+    if (Object.prototype.hasOwnProperty.call(map.sharpness, quality.sharpness)) {
+      parts.push(Number(map.sharpness[quality.sharpness]));
+    }
+    if (Object.prototype.hasOwnProperty.call(map.exposure, quality.exposure)) {
+      parts.push(Number(map.exposure[quality.exposure]));
+    }
+    if (quality.watermark !== undefined && quality.watermark !== null) {
+      parts.push(Number(map.watermark[String(Boolean(quality.watermark))]));
+    }
+    return parts.length ? parts.reduce(function (sum, value) { return sum + value; }, 0) / parts.length : 0;
+  }
+  function calculate(items, verdicts, base, params) {
+    var excluded = new Set(["not_applicable", "needs_human"]);
+    var numerator = 0;
+    var denominator = 0;
+    var requiredPass = true;
+    var needsHuman = false;
+    var lines = [];
+    items.forEach(function (item, index) {
+      var verdict = verdicts[index] || "miss";
+      var weight = Number(item.weight || 0);
+      var required = Boolean(item.required);
+      var multiplier = excluded.has(verdict) ? 0 : Number(params.verdict_multipliers[verdict] || 0);
+      var score = weight * multiplier;
+      if (!excluded.has(verdict)) {
+        numerator += score;
+        denominator += weight;
+      }
+      if (required && verdict !== "hit") requiredPass = false;
+      if (verdict === "needs_human") needsHuman = true;
+      lines.push({
+        item_ref: Number(item.seq),
+        verdict: verdict,
+        weight: weight,
+        required: required,
+        score: score,
+        confidence: 1
+      });
+    });
+    var observations = Array.isArray(base.observations) ? base.observations : [];
+    var assetQuality = observations.length
+      ? observations.map(function (row) { return qualityScore(row, params); })
+        .reduce(function (sum, value) { return sum + value; }, 0) / observations.length
+      : 0;
+    var compliance = observations.some(function (row) {
+      if (!row || !row.compliance_flags) return false;
+      return Array.isArray(row.compliance_flags) ? row.compliance_flags.length > 0 : Boolean(row.compliance_flags);
+    }) ? 0 : 1;
+    if (!compliance) needsHuman = true;
+    if (Number(base.vl_failure_rate || 0) > Number(params.vl_failure_rate_limit)) needsHuman = true;
+    var specHit = denominator ? numerator / denominator : 0;
+    var content = Number((base.content_match || { score: 1 }).score);
+    if ((base.evidence_scope || "full") === "cover_only") {
+      content *= Number(params.cover_only_content_match_multiplier);
+    }
+    content = Math.max(0, Math.min(1, content));
+    var weights = params.dim_weights;
+    var total = 100 * (
+      Number(weights.spec_hit) * specHit +
+      Number(weights.asset_quality) * assetQuality +
+      Number(weights.content_match) * content +
+      Number(weights.compliance) * compliance
+    );
+    var gatePass = (base.evidence_scope || "full") === "full" &&
+      requiredPass && total >= Number(params.gate_threshold);
+    var thresholds = params.grade_thresholds;
+    var grade = total >= Number(thresholds.A) && requiredPass ? "A"
+      : total >= Number(thresholds.B) ? "B"
+      : total >= Number(thresholds.C) ? "C" : "D";
+    return {
+      item_scores: lines,
+      spec_hit_rate: roundTo(specHit, 3),
+      dim_scores: {
+        spec_hit: roundTo(specHit, 3),
+        asset_quality: roundTo(assetQuality, 3),
+        content_match: roundTo(content, 3),
+        compliance: roundTo(compliance, 3)
+      },
+      total_score: roundTo(total, 2),
+      required_pass: requiredPass,
+      gate_pass: gatePass,
+      grade: grade,
+      needs_human: needsHuman
+    };
+  }
+  window.BrandBrainScore = { calculate: calculate };
+})();
+
+(function () {
+  "use strict";
+  var data = JSON.parse(document.getElementById("eval-data").textContent);
+  var root = document.querySelector('[data-testid="eval-calc"]');
+  var selects = Array.from(root.querySelectorAll("select"));
+  var totalNode = document.querySelector('[data-testid="eval-total"]');
+  var gateNode = document.querySelector('[data-testid="gate-pass"]');
+  var gradeNode = document.querySelector('[data-testid="eval-grade"]');
+  var verdictMain = document.getElementById("verdict-main");
+  var verdictChangeChip = document.getElementById("verdict-change-chip");
+  var verdictSummary = document.getElementById("verdict-summary");
+  var verdictTrigger = document.getElementById("verdict-trigger");
+  var verdictTriggerText = document.getElementById("verdict-trigger-text");
+  var verdictTriggerJump = document.getElementById("verdict-trigger-jump");
+  var triadGate = document.getElementById("triad-gate");
+  var triadGateBefore = document.getElementById("triad-gate-before");
+  var triadGateCause = document.getElementById("triad-gate-cause");
+  var gateCell = document.getElementById("gate-cell");
+  var gradeCell = document.getElementById("grade-cell");
+  var gradeBefore = document.getElementById("grade-before");
+  var totalCell = document.getElementById("total-cell");
+  var totalBefore = document.getElementById("total-before");
+  var resultFeedback = document.getElementById("result-feedback");
+  var scoreboard = root.querySelector(".scoreboard");
+  var rollupBox = document.getElementById("rollup-box");
+  var changeTrace = document.getElementById("change-trace");
+  var changeBridge = document.getElementById("change-bridge");
+  var changeReceipt = document.getElementById("change-receipt");
+  var changeReceiptItem = document.getElementById("change-receipt-item");
+  var changeReceiptDelta = document.getElementById("change-receipt-delta");
+  var excludedVerdicts = new Set(data.excluded || []);
+  var previousVerdicts = selects.map(function (select) { return select.value; });
+  function presetVerdict(name, item) {
+    if (name === "required-block" && Number(item.seq) === 1) return "miss";
+    if (name === "score-edge") {
+      return [1, 2, 3, 4, 8, 9, 10, 11].includes(Number(item.seq)) ? "hit" : "miss";
+    }
+    if (name === "manual-review" && Number(item.seq) === 3) return "needs_human";
+    return "hit";
+  }
+  function markPreset(name) {
+    document.querySelectorAll("[data-preset]").forEach(function (button) {
+      button.setAttribute("aria-pressed", String(button.dataset.preset === name));
+    });
+    var active = document.querySelector('[data-preset="' + name + '"]');
+    var presetState = document.getElementById("preset-state");
+    var impacts = {
+      "all-hit": "影响：所有条目设为命中",
+      "required-block": "影响：#01 必过项设为未命中",
+      "score-edge": "影响：加分项组合调整到 74 分边界",
+      "manual-review": "影响：#03 转人工并暂时移出分母"
+    };
+    presetState.textContent = active ? impacts[name] : "当前操作：逐条自定义判定";
+    presetState.classList.toggle("is-custom", name === "custom");
+  }
+  function applyPreset(name) {
+    selects.forEach(function (select, index) { select.value = presetVerdict(name, data.items[index]); });
+    previousVerdicts = selects.map(function (select) { return select.value; });
+    markPreset(name);
+    render(null);
+  }
+  function setBar(id, value) {
+    document.getElementById(id).style.width = Math.max(0, Math.min(100, value * 100)) + "%";
+  }
+  function specParts(scoreResult) {
+    var numerator = 0;
+    var denominator = 0;
+    scoreResult.item_scores.forEach(function (line) {
+      if (!excludedVerdicts.has(line.verdict)) {
+        numerator += Number(line.score);
+        denominator += Number(line.weight);
+      }
+    });
+    return { numerator: numerator, denominator: denominator, rate: denominator ? numerator / denominator : 0 };
+  }
+  function signed(value, digits) {
+    var threshold = Math.pow(10, -digits) / 2;
+    if (Math.abs(value) < threshold) return "±" + Number(0).toFixed(digits);
+    return (value > 0 ? "+" : "−") + Math.abs(value).toFixed(digits);
+  }
+  function deltaPhrase(value) {
+    if (Math.abs(value) < 0.005) return "不变";
+    return (value > 0 ? "多 " : "少 ") + Math.abs(value).toFixed(2) + " 分";
+  }
+  function render(change) {
+    var verdicts = selects.map(function (select) { return select.value; });
+    var result = window.BrandBrainScore.calculate(data.items, verdicts, data, data.params);
+    var hasChange = Boolean(change && change.from !== change.to);
+    if (hasChange) {
+      var receiptItem = data.items[change.index];
+      changeReceipt.hidden = false;
+      changeReceiptItem.textContent = "#" + String(receiptItem.seq).padStart(2, "0") + " · " + receiptItem.requirement;
+      changeReceiptDelta.textContent = (data.verdict_labels[change.from] || change.from) + " → " +
+        (data.verdict_labels[change.to] || change.to);
+      verdictChangeChip.hidden = false;
+      verdictChangeChip.textContent = "#" + String(receiptItem.seq).padStart(2, "0") + " " +
+        (data.verdict_labels[change.from] || change.from) + " → " + (data.verdict_labels[change.to] || change.to);
+    } else {
+      changeReceipt.hidden = true;
+      changeReceiptItem.textContent = "";
+      changeReceiptDelta.textContent = "";
+      verdictChangeChip.hidden = true;
+      verdictChangeChip.textContent = "";
+    }
+    var beforeResult = result;
+    if (hasChange) {
+      var beforeVerdicts = verdicts.slice();
+      beforeVerdicts[change.index] = change.from;
+      beforeResult = window.BrandBrainScore.calculate(data.items, beforeVerdicts, data, data.params);
+    }
+    var totalChanged = hasChange && Number(beforeResult.total_score) !== Number(result.total_score);
+    var gateChanged = hasChange && Boolean(beforeResult.gate_pass) !== Boolean(result.gate_pass);
+    var gradeChanged = hasChange && String(beforeResult.grade) !== String(result.grade);
+    var failedRequired = [];
+    var rawNumerator = 0;
+    var rawDenominator = 0;
+    var excludedCount = 0;
+    var redlineTotal = data.items.filter(function (item) { return item.required && Number(item.weight) === 0; }).length;
+    var redlineHits = 0;
+    result.item_scores.forEach(function (line, index) {
+      var item = data.items[index];
+      var row = selects[index].closest(".score-item");
+      var points = row.querySelector("[data-score-for]");
+      row.classList.remove("is-correction-target");
+      points.textContent = line.verdict === "needs_human"
+        ? "本项转人工 · 不计入"
+        : "本项 " + Number(line.score).toFixed(1) + " / " + Number(line.weight).toFixed(0) +
+          " · " + (Number(line.score) - Number(line.weight) >= 0 ? "+" : "") +
+          (Number(line.score) - Number(line.weight)).toFixed(1);
+      var blocking = Boolean(item.required && line.verdict !== "hit");
+      row.classList.toggle("is-blocking", blocking);
+      if (blocking) failedRequired.push({ item: item, verdict: line.verdict });
+      if (item.required && Number(item.weight) === 0 && line.verdict === "hit") redlineHits += 1;
+      if (Number(item.weight) > 0 && excludedVerdicts.has(line.verdict)) excludedCount += 1;
+      if (!excludedVerdicts.has(line.verdict)) {
+        rawNumerator += Number(line.score);
+        rawDenominator += Number(line.weight);
+      }
+    });
+    if (result.gate_pass) {
+      verdictTrigger.hidden = true;
+      verdictTriggerText.textContent = "";
+      verdictTriggerJump.hidden = true;
+      verdictTriggerJump.removeAttribute("data-item-ref");
+    } else if (failedRequired.length) {
+      var trigger = failedRequired[0];
+      verdictTrigger.hidden = false;
+      verdictTriggerText.textContent = "致因｜" + trigger.item.requirement + " · " +
+        (data.verdict_labels[trigger.verdict] || trigger.verdict) +
+        (failedRequired.length > 1 ? " · 另有 " + (failedRequired.length - 1) + " 个必过项" : "");
+      verdictTriggerJump.hidden = false;
+      verdictTriggerJump.dataset.itemRef = String(trigger.item.seq);
+      verdictTriggerJump.textContent = "返回 #" + String(trigger.item.seq).padStart(2, "0") + " 修正";
+    } else {
+      var correctionIndex = result.item_scores.findIndex(function (line) { return line.verdict !== "hit"; });
+      var correctionItem = correctionIndex >= 0 ? data.items[correctionIndex] : null;
+      verdictTrigger.hidden = false;
+      verdictTriggerText.textContent = "触发未通过｜诊断总分 " + Number(result.total_score).toFixed(2) + " < 75";
+      verdictTriggerJump.hidden = !correctionItem;
+      if (correctionItem) {
+        verdictTriggerJump.dataset.itemRef = String(correctionItem.seq);
+        verdictTriggerJump.textContent = "返回 #" + String(correctionItem.seq).padStart(2, "0") + " 修正";
+      } else {
+        verdictTriggerJump.removeAttribute("data-item-ref");
+      }
+    }
+    totalNode.textContent = Number(result.total_score).toFixed(2);
+    totalNode.setAttribute("data-total", String(result.total_score));
+    var failedIds = failedRequired.map(function (entry) { return String(entry.item.seq).padStart(2, "0"); }).join("/");
+    verdictMain.textContent = result.gate_pass ? "最终结果：通过" : "最终结果：未通过";
+    verdictSummary.textContent = result.gate_pass
+      ? "算分 " + Number(result.total_score).toFixed(2) + " → 必过项全部命中 → 分级 " + result.grade + " 生效"
+      : (!result.required_pass
+        ? "算分 " + Number(result.total_score).toFixed(2) + " → 必过项 " + failedIds + " 未全命中 → 分级不生效"
+        : "算分 " + Number(result.total_score).toFixed(2) + " < 75 → 分数门未达标 → 分级不生效");
+    gateNode.setAttribute("data-pass", String(result.gate_pass));
+    gateNode.className = "verdict-title " + (result.gate_pass ? "is-pass" : "is-fail");
+    scoreboard.classList.toggle("is-result-fail", !result.gate_pass);
+    triadGate.textContent = result.gate_pass ? "通过" : "未通过";
+    gateCell.className = "result-cell " + (result.gate_pass ? "is-gate-pass" : "is-gate-fail") + (gateChanged ? " is-updated" : "");
+    var gateCause = result.gate_pass ? "必过项已全命中" : (!result.required_pass
+      ? "必过项 " + failedIds + " 未全命中"
+      : "加权诊断总分未达 75");
+    triadGateBefore.textContent = hasChange
+      ? "上一步 " + (beforeResult.gate_pass ? "通过" : "未通过") + " →"
+      : "基线状态";
+    triadGateCause.textContent = gateCause;
+    gradeNode.textContent = result.gate_pass ? "已生效" : "不生效";
+    var beforeGradeState = beforeResult.gate_pass ? beforeResult.grade + "·生效" : "不生效";
+    gradeBefore.textContent = hasChange ? "上一步 " + beforeGradeState + " →" : "基线状态";
+    document.getElementById("grade-reference").textContent = result.gate_pass
+      ? "等级 " + result.grade
+      : result.grade + " 仅为总分对应，不是最终等级";
+    gradeCell.className = "result-cell " + (result.gate_pass ? "" : "is-grade-fail") + (gradeChanged ? " is-updated" : "");
+    gradeNode.setAttribute("data-grade", result.grade);
+    document.getElementById("human-state").textContent = result.needs_human ? "人工复核：已触发" : "人工复核：未触发";
+    totalCell.className = "result-cell" + (totalChanged ? " is-updated" : "");
+    totalBefore.textContent = hasChange ? "上一步 " + Number(beforeResult.total_score).toFixed(2) + " →" : "基线状态";
+    document.getElementById("total-delta").textContent = hasChange
+      ? "本步变化 " + signed(Number(result.total_score) - Number(beforeResult.total_score), 2)
+      : "满分 100；不覆盖必过门";
+    resultFeedback.classList.toggle("is-change", hasChange);
+    resultFeedback.textContent = hasChange
+      ? "本步变化｜总分 " + Number(beforeResult.total_score).toFixed(2) + " → " + Number(result.total_score).toFixed(2)
+      : "基线状态｜总分 " + Number(result.total_score).toFixed(2) + " · 必过门 " +
+        (result.gate_pass ? "通过" : "未通过") + " · 分级 " + (result.gate_pass ? result.grade + " 生效" : "不生效");
+    var weights = data.params.dim_weights;
+    var specRate = rawDenominator ? rawNumerator / rawDenominator : 0;
+    var spec = Number(weights.spec_hit) * specRate * 100;
+    var quality = Number(weights.asset_quality) * Number(result.dim_scores.asset_quality) * 100;
+    var content = Number(weights.content_match) * Number(result.dim_scores.content_match) * 100;
+    var compliance = Number(weights.compliance) * Number(result.dim_scores.compliance) * 100;
+    if (change && change.from !== change.to) {
+      var afterParts = specParts(result);
+      var changedItem = data.items[change.index];
+      var afterLine = result.item_scores[change.index];
+      var beforeLine = beforeResult.item_scores[change.index];
+      var traceText;
+      if (Number(changedItem.weight) === 0) {
+        traceText = "第 " + String(changedItem.seq).padStart(2, "0") + " 项：0 权重，不参与四维加总（当前“" +
+          (data.verdict_labels[change.to] || change.to) + "”）";
+        scoreboard.classList.remove("trace-spec");
+      } else {
+        if (excludedVerdicts.has(change.to)) {
+          traceText = "第 " + String(changedItem.seq).padStart(2, "0") + " 项：转人工，暂不计分并移出分母（上一步 " +
+            Number(beforeLine.score).toFixed(2) + "）";
+        } else {
+          var multiplier = Number(data.params.verdict_multipliers[change.to] || 0);
+          traceText = "第 " + String(changedItem.seq).padStart(2, "0") + " 项：" +
+            Number(changedItem.weight).toFixed(2) + " × " + (multiplier * 100).toFixed(0) + "% = " +
+            Number(afterLine.score).toFixed(2) + "（上一步 " + Number(beforeLine.score).toFixed(2) + "）";
+        }
+        scoreboard.classList.add("trace-spec");
+      }
+      changeTrace.textContent = traceText;
+      var itemScoreDelta = Number(afterLine.score) - Number(beforeLine.score);
+      var totalScoreDelta = Number(result.total_score) - Number(beforeResult.total_score);
+      if (Number(changedItem.weight) === 0) {
+        changeBridge.textContent = "桥接｜本项 0 权重 → 总分不变；必过门仍单独判定";
+      } else if (excludedVerdicts.has(change.to)) {
+        changeBridge.textContent = "桥接｜本项移出可计分母 → 60 分维度重新归一 → 总分" + deltaPhrase(totalScoreDelta);
+      } else {
+        changeBridge.textContent = "桥接｜本项" + deltaPhrase(itemScoreDelta) + " → 60 分维度归一后 → 总分" + deltaPhrase(totalScoreDelta);
+      }
+      var specWeightPoints = Number(weights.spec_hit) * 100;
+      document.getElementById("trace-dim-spec-meta").textContent = "已得 " + afterParts.numerator.toFixed(2) +
+        " · 可计满分 " + afterParts.denominator.toFixed(2) + " · 权重 " + specWeightPoints.toFixed(0) +
+        "% · 维度得分 " + spec.toFixed(2);
+      document.getElementById("trace-dim-spec-equation").textContent = "复算：" + afterParts.numerator.toFixed(2) + " ÷ " +
+        afterParts.denominator.toFixed(2) + " × " + specWeightPoints.toFixed(0) + " = " + spec.toFixed(2);
+      document.getElementById("trace-dim-quality").textContent = (Number(result.dim_scores.asset_quality) * 100).toFixed(2) +
+        "% × 15 = " + quality.toFixed(2);
+      document.getElementById("trace-dim-content").textContent = (Number(result.dim_scores.content_match) * 100).toFixed(2) +
+        "% × 15 = " + content.toFixed(2);
+      document.getElementById("trace-dim-compliance").textContent = (Number(result.dim_scores.compliance) * 100).toFixed(2) +
+        "% × 10 = " + compliance.toFixed(2);
+      document.getElementById("trace-dim-total").textContent = spec.toFixed(2) + " + " + quality.toFixed(2) + " + " +
+        content.toFixed(2) + " + " + compliance.toFixed(2) + " = " + Number(result.total_score).toFixed(2);
+      var gateTraceText;
+      if (result.gate_pass) {
+        gateTraceText = "必过项全部命中 + 诊断总分 ≥ 75 → 必过门通过 → 本次通过";
+      } else if (!result.required_pass) {
+        var failedGateText = failedRequired.map(function (entry) {
+          return "必过项 " + String(entry.item.seq).padStart(2, "0") + " 为“" +
+            (data.verdict_labels[entry.verdict] || entry.verdict) + "”";
+        }).join("；");
+        gateTraceText = failedGateText + " → 必过门否决 → 本次未通过";
+      } else {
+        gateTraceText = "必过项全部命中 + 诊断总分 < 75 → 分数门否决 → 本次未通过";
+      }
+      document.getElementById("gate-trace").textContent = gateTraceText;
+      document.getElementById("gate-trace-label").textContent = "门槛判定 · 不参与加总";
+      rollupBox.classList.add("is-change");
+    } else {
+      changeTrace.textContent = "条目小计 → 维度折算 → 总分贡献";
+      changeBridge.textContent = "";
+      rollupBox.classList.remove("is-change");
+      scoreboard.classList.remove("trace-spec");
+    }
+    document.getElementById("spec-subtotal-left").textContent = rawNumerator.toFixed(2) + " / " + rawDenominator.toFixed(2);
+    document.getElementById("spec-rate-left").textContent = (specRate * 100).toFixed(2) + "%";
+    document.getElementById("spec-contribution-left").textContent = spec.toFixed(2) + " / 60.00";
+    document.getElementById("spec-excluded-left").textContent = excludedCount + " 项剔除分母";
+    document.getElementById("redline-subtotal-left").textContent = redlineHits + " / " + redlineTotal + " 命中";
+    document.getElementById("redline-gate-left").textContent = "0.00 · " + (redlineHits === redlineTotal ? "必过门通过" : "必过门否决");
+    document.getElementById("rollup-subtotal").textContent = rawNumerator.toFixed(2) + " / " + rawDenominator.toFixed(2);
+    document.getElementById("rollup-rate").textContent = (specRate * 100).toFixed(2) + "%";
+    document.getElementById("rollup-spec").textContent = spec.toFixed(2) + " / 60.00";
+    document.getElementById("dim-spec").textContent = spec.toFixed(2) + " / 60";
+    document.getElementById("dim-quality").textContent = quality.toFixed(2) + " / 15";
+    document.getElementById("dim-content").textContent = content.toFixed(2) + " / 15";
+    document.getElementById("dim-compliance").textContent = compliance.toFixed(2) + " / 10";
+    document.getElementById("formula-line").textContent = spec.toFixed(2) + " + " + quality.toFixed(2) + " + " +
+      content.toFixed(2) + " + " + compliance.toFixed(2) + " = " + Number(result.total_score).toFixed(2);
+    setBar("bar-spec", result.dim_scores.spec_hit);
+    setBar("bar-quality", result.dim_scores.asset_quality);
+    setBar("bar-content", result.dim_scores.content_match);
+    setBar("bar-compliance", result.dim_scores.compliance);
+    var requiredCause = failedRequired.map(function (entry) {
+      var verdictLabel = data.verdict_labels[entry.verdict] || entry.verdict;
+      return "必过项 " + String(entry.item.seq).padStart(2, "0") + " 为“" + verdictLabel + "”→未完全满足";
+    }).join("；");
+    var gateReason = result.gate_pass
+      ? "必过项全部命中，且加权诊断总分达到 75；本次通过。"
+      : (!result.required_pass
+        ? "当前必过项未全部命中；修正致因条目后重验。"
+        : "加权诊断总分未达到 75→本次未通过。补齐得分项后重验。");
+    document.getElementById("gate-reason").textContent = gateReason;
+    document.getElementById("score-explain").textContent = "诊断分、闸门结论与分级状态并列判断；上方折算可直接复核。";
+  }
+  selects.forEach(function (select, index) {
+    select.addEventListener("change", function () {
+      var change = { index: index, from: previousVerdicts[index], to: select.value };
+      render(change);
+      previousVerdicts = selects.map(function (entry) { return entry.value; });
+      markPreset("custom");
+    });
+  });
+  verdictTriggerJump.addEventListener("click", function () {
+    var target = document.querySelector('select.verdict-select[data-item-ref="' + verdictTriggerJump.dataset.itemRef + '"]');
+    if (!target) return;
+    target.scrollIntoView({ block: "center" });
+    target.focus({ preventScroll: true });
+    target.closest(".score-item").classList.add("is-correction-target");
+  });
+  document.querySelectorAll("[data-preset]").forEach(function (button) {
+    button.addEventListener("click", function () { applyPreset(button.dataset.preset); });
+  });
+  document.getElementById("eval-reset").addEventListener("click", function () {
+    applyPreset("all-hit");
+  });
+  applyPreset("all-hit");
+})();
+</script></body></html>

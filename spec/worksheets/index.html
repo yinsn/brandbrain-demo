@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SPEC 批量试产 · 导购作业单总览</title>
+  <!--bb:inject:start:style--><style>
+:root {
+  color-scheme: light;
+  --ink: #1f1f1f;
+  --ink-soft: #6e6e73;
+  --forest: #ff2442;
+  --forest-2: #e91d3a;
+  --paper: #ffffff;
+  --cream: #f5f5f7;
+  --white: #ffffff;
+  --line: #ececef;
+  --line-strong: #d8d8de;
+  --coral: #ff2442;
+  --coral-soft: #fff0f3;
+  --lime: #ff2442;
+  --lime-soft: #fff0f3;
+  --blue: #5966d8;
+  --blue-soft: #eef0ff;
+  --amber: #9a6200;
+  --amber-soft: #fff6df;
+  --red: #d91f3a;
+  --red-soft: #fff0f3;
+  --shadow: 0 10px 32px rgba(24, 24, 27, .07);
+  --shadow-soft: 0 4px 18px rgba(24, 24, 27, .05);
+  --radius-xl: 16px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+* { box-sizing: border-box; }
+.visually-hidden, [class~="illustration-defs"] {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+html { min-width: 0; background: var(--cream); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-width: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.58;
+}
+a { color: inherit; }
+[data-testid="demo-banner"] {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  background: rgba(255,255,255,.97);
+  box-shadow: 0 1px 10px rgba(24,24,27,.04);
+}
+[class~="bb-ws-banner-inner"] {
+  width: min(100% - 32px, 920px);
+  min-height: 48px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+}
+[class~="bb-ws-banner-dot"] {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--forest);
+  box-shadow: 0 0 0 5px rgba(255,36,66,.1);
+}
+[class~="bb-ws-banner-note"] { margin-left: auto; color: var(--ink-soft); font-size: 11px; font-weight: 750; }
+[class~="bb-ws-nav"] {
+  width: min(100% - 28px, 920px);
+  min-height: 52px;
+  margin: 14px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 6px 8px 6px 12px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+}
+[data-testid="ws-back-to-hub"] {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: #fff;
+  background: var(--forest);
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+}
+[class~="bb-ws-current"] {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  padding: 7px 10px;
+  color: var(--forest);
+  background: var(--coral-soft);
+  box-shadow: inset 0 -3px 0 var(--forest);
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+}
+[class~="bb-ws-stages"] { display: inline-flex; align-items: center; gap: 5px; color: var(--ink-soft); font-size: 11px; font-weight: 850; padding: 4px 6px; border: 1px solid #ffd4dc; border-radius: 12px; background: #fff6f8; }
+[class~="bb-ws-stages"] strong { color: var(--brand); font-size: 11px; white-space: nowrap; letter-spacing: .03em; }
+[class~="bb-ws-stages"] span { border: 1px solid #f1dfe3; border-radius: 999px; padding: 4px 7px; background: #fff; color: var(--ink); }
+[class~="page"] { width: min(100% - 28px, 920px); margin: 0 auto; padding: 14px 0 48px; }
+[data-testid="ws-header"], [class~="index-header"], [class~="section"], [data-testid="ws-summary"],
+[class~="index-tools"], [class~="index-table-wrap"] {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+}
+[data-testid="ws-header"], [class~="index-header"] { padding: clamp(22px, 5vw, 38px); }
+[class~="eyebrow"] {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 9px;
+  color: var(--forest);
+  background: var(--coral-soft);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+h1, h2, h3, p { overflow-wrap: anywhere; }
+h1 { margin: 0; font-size: clamp(30px, 6vw, 46px); line-height: 1.08; letter-spacing: 0; }
+h2 { margin: 0; font-size: clamp(21px, 4vw, 28px); line-height: 1.2; letter-spacing: 0; }
+h3 { margin: 0; font-size: 16px; }
+[class~="meta-row"], [class~="badge-row"], [class~="item-topline"], [class~="section-heading"], [class~="index-summary"] {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+[class~="meta-row"] { margin-top: 18px; }
+[class~="meta-chip"], [class~="badge"], [class~="status-pill"] {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: var(--ink-soft);
+  background: #f0f0f3;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+[class~="badge-required"], [class~="badge-redline-gate"] { color: #fff; background: var(--forest); }
+[class~="badge-bonus"], [class~="badge-evidence"], [class~="badge-check"],
+[class~="badge-segment"], [class~="badge-weight"], [class~="status-generated"] { color: var(--ink-soft); background: #f0f0f3; }
+[class~="check-manual"], [class~="badge-manual-primary"] { color: var(--red); background: var(--coral-soft); }
+[class~="objective"] { margin: 22px 0 0; font-size: 18px; font-weight: 700; }
+[class~="scene-brief"] { margin: 9px 0 0; color: var(--ink-soft); }
+[class~="scope-strip"] {
+  margin-top: 20px;
+  border-left: 4px solid var(--forest);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--ink);
+  background: var(--coral-soft);
+  font-weight: 750;
+}
+[class~="required-breakdown"] {
+  display: grid;
+  gap: 7px;
+  margin-top: 12px;
+  border: 1px solid #ffc5ce;
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--red);
+  background: var(--coral-soft);
+  font-weight: 800;
+}
+[class~="required-breakdown-head"] { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+[class~="gate-condition"] { margin: 0; color: var(--ink); font-size: 14px; }
+[class~="required-breakdown"] a, [class~="required-jump"] { color: var(--forest); font-size: 13px; font-weight: 850; text-underline-offset: 3px; }
+[class~="quick-counts"] { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 20px; }
+[class~="quick-count"] { min-width: 0; border-radius: 12px; padding: 12px; background: #f7f7fa; }
+[class~="quick-count"] strong { display: block; font-size: 23px; }
+[class~="quick-count"] span { color: var(--ink-soft); font-size: 12px; font-weight: 750; }
+[class~="section"] { margin-top: 14px; padding: clamp(18px, 4vw, 26px); }
+[class~="section-heading"] { justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+[class~="section-kicker"] { margin: 5px 0 0; color: var(--ink-soft); font-size: 13px; }
+[class~="required-overview"], [class~="redline-section"] { border-color: #ffc5ce; background: linear-gradient(180deg, #fff7f8, #fff); }
+[class~="required-grid"] { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 12px; }
+[class~="required-group"] { min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 13px; background: #fff; }
+[class~="required-group"] h3 { margin-bottom: 7px; }
+[class~="required-group"] p { margin: 0; color: var(--ink-soft); }
+[class~="required-list"] { margin: 0; padding-left: 21px; }
+[class~="required-list"] li + li { margin-top: 7px; }
+[class~="required-list"] a { text-decoration-color: #ff9aaa; text-underline-offset: 3px; }
+[class~="focus-grid"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 17px; }
+[class~="focus-row"] { min-width: 0; border-bottom: 1px dashed var(--line); padding: 8px 0; }
+[class~="focus-label"] { display: block; color: var(--ink-soft); font-size: 12px; font-weight: 800; }
+[class~="focus-value"] { display: block; margin-top: 2px; font-weight: 700; }
+[class~="focus-empty"], [class~="choice-note"], [class~="manual-legend"] {
+  margin: 0 0 13px;
+  border-radius: 12px;
+  padding: 11px 13px;
+  color: var(--ink);
+  background: #f7f7fa;
+  font-size: 13px;
+  font-weight: 750;
+}
+[class~="manual-focus-list"] { margin: 10px 0 0; padding: 0; list-style: none; }
+[class~="manual-focus-list"] li + li { margin-top: 7px; }
+[class~="manual-focus-list"] a { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 7px; }
+[class~="manual-item-number"] { min-height: 28px; display: grid; place-items: center; border-radius: 8px; color: #fff; background: var(--forest); font-size: 12px; font-weight: 900; }
+[class~="item-list"], [class~="category-grid"] { display: grid; gap: 11px; }
+[class~="category-block"] + [class~="category-block"] { margin-top: 22px; }
+[class~="category-title"] { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+[class~="category-title"] span { color: var(--ink-soft); font-size: 12px; font-weight: 750; }
+[class~="item-card"] {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  column-gap: 12px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+}
+[class~="item-card"][class~="is-required"] { border-left-color: var(--forest); }
+[class~="item-card"][class~="is-redline"] { border-color: #ff9aaa; border-left-color: var(--forest); background: var(--coral-soft); }
+[class~="item-topline"] { grid-column: 1 / -1; justify-content: space-between; }
+[class~="item-main-status"] { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+[class~="item-number"] { color: var(--forest); font-size: 12px; font-weight: 900; letter-spacing: 0; }
+[data-ill-key] { grid-column: 1; grid-row: 2 / span 2; width: 64px; height: 64px; display: block; margin-top: 9px; }
+[class~="requirement"] { grid-column: 2; margin: 10px 0 9px; font-size: 16px; font-weight: 750; line-height: 1.48; }
+[class~="item-card"] > [class~="badge-row"] { grid-column: 2; }
+[class~="route-nav"] { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 17px; border-radius: 12px; padding: 10px; background: #f7f7fa; }
+[class~="route-label"] { flex: 1 0 100%; color: var(--ink-soft); font-size: 12px; font-weight: 800; }
+[class~="route-link"] { min-height: 40px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 10px; padding: 6px 9px; background: #fff; text-decoration: none; }
+[class~="route-link"] strong { color: var(--forest); font-size: 12px; }
+[data-testid="ws-summary"] { margin-top: 14px; padding: clamp(20px, 4vw, 28px); border-left: 4px solid var(--forest); }
+[data-testid="ws-summary"] h2 { color: var(--ink); }
+[data-testid="ws-summary"] p { margin: 9px 0 0; color: var(--ink-soft); }
+[class~="gate-line"] { color: var(--red) !important; font-size: 17px; font-weight: 850; }
+[class~="back-link"], [class~="worksheet-link"] { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; padding: 8px 13px; font-weight: 800; text-decoration: none; }
+[class~="back-link"] { margin-top: 15px; color: var(--forest); border: 1px solid #ffc5ce; background: #fff; }
+[class~="worksheet-link"] { color: var(--forest); border: 1px solid #ff9aaa; background: #fff; }
+[class~="worksheet-link"]:hover, [class~="worksheet-link"]:focus-visible { color: #fff; background: var(--forest); }
+[class~="index-summary"] { margin-top: 20px; }
+[class~="index-stat"] { min-width: 130px; flex: 1 1 0; border-radius: 12px; padding: 13px 15px; background: #f7f7fa; }
+[class~="index-stat"] strong { display: block; font-size: 23px; }
+[class~="index-stat"] span { color: var(--ink-soft); font-size: 12px; font-weight: 750; }
+[class~="index-tools"] { display: grid; grid-template-columns: minmax(220px, 1.6fr) repeat(3, minmax(120px, .7fr)); gap: 9px; margin-top: 14px; padding: 14px; }
+[class~="filter-field"] { min-width: 0; display: grid; gap: 5px; color: var(--ink-soft); font-size: 12px; font-weight: 800; }
+[class~="filter-field"] input, [class~="filter-field"] select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: var(--ink);
+  background: #fff;
+  font: inherit;
+}
+[class~="filter-field"] input:focus, [class~="filter-field"] select:focus, a:focus-visible { outline: 3px solid rgba(255,36,66,.18); border-color: var(--forest); }
+[class~="result-count"] { grid-column: 1 / -1; margin: 0; color: var(--forest); font-size: 13px; font-weight: 850; }
+[hidden] { display: none !important; }
+[class~="index-table-wrap"] { margin-top: 14px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th, td { min-width: 0; border-bottom: 1px solid var(--line); padding: 12px 10px; text-align: left; vertical-align: middle; overflow-wrap: anywhere; }
+th { color: var(--ink-soft); background: #f7f7fa; font-size: 12px; letter-spacing: 0; }
+tbody tr:last-child td { border-bottom: 0; }
+[class~="task-cell"] strong { display: block; line-height: 1.4; }
+[class~="task-id"], [class~="muted"] { color: var(--ink-soft); font-size: 11px; }
+@media (min-width: 641px) {
+  [class~="index-header"] { padding: 22px 32px; }
+  [class~="index-header"] h1 { font-size: 38px; }
+  [class~="index-header"] [class~="eyebrow"] { margin-bottom: 6px; }
+  [class~="index-header"] [class~="objective"] { margin-top: 12px; font-size: 15px; line-height: 1.45; }
+  [class~="index-summary"] { margin-top: 13px; gap: 8px; }
+  [class~="index-stat"] { display: flex; align-items: baseline; gap: 8px; padding: 8px 12px; }
+  [class~="index-stat"] strong { display: inline; font-size: 20px; }
+  [class~="index-tools"] { padding: 10px 12px; }
+  [class~="filter-field"] input, [class~="filter-field"] select { min-height: 40px; }
+  [class~="index-table-wrap"] { margin-top: 10px; }
+  [class~="index-table-wrap"] th, [class~="index-table-wrap"] td { padding-top: 9px; padding-bottom: 9px; }
+}
+@media (min-width: 760px) {
+  [class~="category-grid"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  [class~="redline-section"] [class~="item-list"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  [class~="bb-ws-banner-inner"], [class~="bb-ws-nav"], [class~="page"] { width: min(100% - 20px, 920px); }
+  [class~="bb-ws-banner-inner"] { min-height: 58px; flex-wrap: wrap; gap: 5px 8px; padding: 7px 0; }
+  [class~="bb-ws-banner-note"] { width: 100%; margin-left: 16px; font-size: 11px; }
+  [class~="bb-ws-nav"] { margin-top: 10px; }
+  [class~="bb-ws-stages"] { display: none; }
+  [data-testid="ws-back-to-hub"] { min-height: 44px; }
+  [class~="page"] { padding-top: 10px; }
+  [class~="quick-counts"], [class~="focus-grid"], [class~="required-grid"], [class~="index-tools"] { grid-template-columns: 1fr; }
+  [class~="result-count"] { grid-column: 1; }
+  [class~="quick-count"] { display: flex; align-items: baseline; justify-content: space-between; }
+  [class~="redline-section"] [class~="item-list"] { grid-template-columns: 1fr; }
+  [class~="item-card"] { grid-template-columns: 54px minmax(0, 1fr); column-gap: 10px; padding: 12px; }
+  [data-ill-key] { width: 54px; height: 54px; }
+  [class~="requirement"] { font-size: 15px; }
+  [class~="index-table-wrap"] { border: 0; background: transparent; box-shadow: none; overflow: visible; }
+  table, tbody, tr, td { display: block; width: 100%; }
+  thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  tbody { display: grid; gap: 9px; }
+  tbody tr { border: 1px solid var(--line); border-radius: 14px; padding: 8px 12px; background: #fff; box-shadow: var(--shadow-soft); }
+  td { display: grid; grid-template-columns: minmax(76px, .38fr) minmax(0, 1fr); gap: 10px; border-bottom: 1px dashed var(--line); padding: 9px 0; }
+  td:last-child { border-bottom: 0; }
+  td::before { content: attr(data-label); color: var(--ink-soft); font-size: 12px; font-weight: 800; }
+  [class~="worksheet-link"] { width: 100%; }
+}
+
+</style><!--bb:inject:end:style-->
+</head>
+<body><!--bb:inject:start:demo-shell--><header class="bb-ws-banner" data-testid="demo-banner"><div class="bb-ws-banner-inner"><span class="bb-ws-banner-dot" aria-hidden="true"></span><strong>演示环境 · 校准仿真样本 · 非生产数据</strong><span class="bb-ws-banner-note">ⓘ 演示口令不是访问控制 · 仅用于减少误触</span></div></header><nav class="bb-ws-nav" aria-label="演示返程导航"><a data-testid="ws-back-to-hub" href="../../index.html">← 返回 BrandBrain 演示中心</a><span class="bb-ws-current" aria-current="page">拍摄作业单</span></nav><!--bb:inject:end:demo-shell-->
+  <main class="page">
+    <header class="index-header">
+      <p class="eyebrow">SPEC BATCH · 20 TASKS</p>
+      <h1>导购作业单总览</h1>
+      <p class="objective">按品牌、任务编号或标题定位作业单；本批为校准试产样本，不含门店归属字段。边界输入会如实显示失败，不生成空白页面。</p>
+      <div class="index-summary">
+        <div class="index-stat"><strong>20</strong><span>可执行作业单</span></div>
+        <div class="index-stat"><strong>2</strong><span>边界拒答</span></div>
+        <div class="index-stat"><strong>22</strong><span>索引记录</span></div>
+      </div>
+    </header>
+    <section class="index-tools" data-testid="idx-controls" aria-label="任务查找与筛选">
+      <label class="filter-field">搜索任务号、标题或品牌
+        <input id="task-search" type="search" autocomplete="off" placeholder="例如：711001 或 CHAMPION">
+      </label>
+      <label class="filter-field">品牌
+        <select id="brand-filter"><option value="">全部品牌</option><option value="champion">CHAMPION</option><option value="johnson">JOHNSON</option><option value="joypeace">JOY &amp; PEACE</option><option value="staccato">STACCATO</option><option value="test">边界样本</option></select>
+      </label>
+      <label class="filter-field">类型
+        <select id="format-filter"><option value="">全部类型</option><option value="image_text">图文</option><option value="video">视频</option></select>
+      </label>
+      <label class="filter-field">状态
+        <select id="status-filter"><option value="">全部状态</option><option value="gen_failed">生成失败</option><option value="generated">已生成</option><option value="render_failed">输入拒绝</option></select>
+      </label>
+      <p id="result-count" class="result-count" aria-live="polite">显示 22 / 22 条记录</p>
+    </section>
+    <div class="index-table-wrap">
+      <table data-testid="idx-table">
+        <colgroup><col style="width:31%"><col style="width:13%"><col style="width:10%"><col style="width:8%"><col style="width:13%"><col style="width:25%"></colgroup>
+        <thead><tr><th>任务</th><th>品牌</th><th>类型</th><th>条目</th><th>状态</th><th>操作</th></tr></thead>
+        <tbody>
+        <tr data-task-id="711001" data-status="generated" data-brand="champion" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>灰色连帽卫衣早八通勤叠穿图文</strong><span class="task-id">#711001</span></td>
+          <td data-label="品牌">CHAMPION</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">11</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711001.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711002" data-status="generated" data-brand="champion" data-format="video">
+          <td class="task-cell" data-label="任务"><strong>黑色轻运动外套门店试穿视频</strong><span class="task-id">#711002</span></td>
+          <td data-label="品牌">CHAMPION</td>
+          <td data-label="类型">视频</td>
+          <td data-label="条目">12</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711002.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711003" data-status="generated" data-brand="champion" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>白色Polo衫周末轻运动图文</strong><span class="task-id">#711003</span></td>
+          <td data-label="品牌">CHAMPION</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711003.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711004" data-status="generated" data-brand="champion" data-format="video">
+          <td class="task-cell" data-label="任务"><strong>运动长裤门店活动视频</strong><span class="task-id">#711004</span></td>
+          <td data-label="品牌">CHAMPION</td>
+          <td data-label="类型">视频</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711004.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711005" data-status="generated" data-brand="champion" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>运动帽周末出行图文</strong><span class="task-id">#711005</span></td>
+          <td data-label="品牌">CHAMPION</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711005.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711101" data-status="generated" data-brand="staccato" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>黑色渔夫鞋通勤图文</strong><span class="task-id">#711101</span></td>
+          <td data-label="品牌">STACCATO</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711101.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711102" data-status="generated" data-brand="staccato" data-format="video">
+          <td class="task-cell" data-label="任务"><strong>酒红玛丽珍鞋晚餐通勤视频</strong><span class="task-id">#711102</span></td>
+          <td data-label="品牌">STACCATO</td>
+          <td data-label="类型">视频</td>
+          <td data-label="条目">12</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711102.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711103" data-status="generated" data-brand="staccato" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>米色乐福鞋办公室图文</strong><span class="task-id">#711103</span></td>
+          <td data-label="品牌">STACCATO</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711103.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711104" data-status="generated" data-brand="staccato" data-format="video">
+          <td class="task-cell" data-label="任务"><strong>尖头通勤鞋门店试穿视频</strong><span class="task-id">#711104</span></td>
+          <td data-label="品牌">STACCATO</td>
+          <td data-label="类型">视频</td>
+          <td data-label="条目">9</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711104.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711105" data-status="generated" data-brand="staccato" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>通勤手袋会议日图文</strong><span class="task-id">#711105</span></td>
+          <td data-label="品牌">STACCATO</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711105.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711201" data-status="generated" data-brand="joypeace" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>米白方头乐福鞋商务通勤图文</strong><span class="task-id">#711201</span></td>
+          <td data-label="品牌">JOY &amp; PEACE</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">11</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711201.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711202" data-status="generated" data-brand="joypeace" data-format="video">
+          <td class="task-cell" data-label="任务"><strong>黑色后空鞋晚间聚会视频</strong><span class="task-id">#711202</span></td>
+          <td data-label="品牌">JOY &amp; PEACE</td>
+          <td data-label="类型">视频</td>
+          <td data-label="条目">11</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711202.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711203" data-status="generated" data-brand="joypeace" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>棕色便士乐福鞋周五通勤图文</strong><span class="task-id">#711203</span></td>
+          <td data-label="品牌">JOY &amp; PEACE</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711203.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711204" data-status="generated" data-brand="joypeace" data-format="video">
+          <td class="task-cell" data-label="任务"><strong>浅色通勤鞋门店试穿视频</strong><span class="task-id">#711204</span></td>
+          <td data-label="品牌">JOY &amp; PEACE</td>
+          <td data-label="类型">视频</td>
+          <td data-label="条目">11</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711204.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711205" data-status="generated" data-brand="joypeace" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>低帮休闲鞋周末咖啡图文</strong><span class="task-id">#711205</span></td>
+          <td data-label="品牌">JOY &amp; PEACE</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">11</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711205.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711301" data-status="generated" data-brand="johnson" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>黑色折叠跑步机健身房图文</strong><span class="task-id">#711301</span></td>
+          <td data-label="品牌">JOHNSON</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">11</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711301.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711302" data-status="generated" data-brand="johnson" data-format="video">
+          <td class="task-cell" data-label="任务"><strong>深灰立式健身车规范使用视频</strong><span class="task-id">#711302</span></td>
+          <td data-label="品牌">JOHNSON</td>
+          <td data-label="类型">视频</td>
+          <td data-label="条目">12</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711302.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711303" data-status="generated" data-brand="johnson" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>划船机健身房训练图文</strong><span class="task-id">#711303</span></td>
+          <td data-label="品牌">JOHNSON</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711303.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711304" data-status="generated" data-brand="johnson" data-format="video">
+          <td class="task-cell" data-label="任务"><strong>椭圆机门店体验视频</strong><span class="task-id">#711304</span></td>
+          <td data-label="品牌">JOHNSON</td>
+          <td data-label="类型">视频</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711304.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="711305" data-status="generated" data-brand="johnson" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>力量训练架健身房图文</strong><span class="task-id">#711305</span></td>
+          <td data-label="品牌">JOHNSON</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">10</td>
+          <td data-label="状态"><span class="status-pill status-generated">已生成</span></td>
+          <td data-label="操作"><a class="worksheet-link" href="711305.html">打开作业单</a></td>
+        </tr>
+
+        <tr data-task-id="719901" data-status="gen_failed" data-brand="test" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>空要求批量边界任务</strong><span class="task-id">#719901</span></td>
+          <td data-label="品牌">边界样本</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">—</td>
+          <td data-label="状态"><span class="status-pill status-gen_failed">生成失败</span></td>
+          <td data-label="操作"><span class="muted">未生成作业单</span></td>
+        </tr>
+
+        <tr data-task-id="719902" data-status="render_failed" data-brand="test" data-format="image_text">
+          <td class="task-cell" data-label="任务"><strong>缺少清单条目的渲染边界样本</strong><span class="task-id">#719902</span></td>
+          <td data-label="品牌">边界样本</td>
+          <td data-label="类型">图文</td>
+          <td data-label="条目">—</td>
+          <td data-label="状态"><span class="status-pill status-render_failed">输入拒绝</span></td>
+          <td data-label="操作"><span class="muted">未生成作业单</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const rows = Array.from(document.querySelectorAll('[data-testid="idx-table"] tbody tr'));
+      const search = document.getElementById('task-search');
+      const brand = document.getElementById('brand-filter');
+      const format = document.getElementById('format-filter');
+      const status = document.getElementById('status-filter');
+      const result = document.getElementById('result-count');
+      const applyFilters = () => {
+        const query = search.value.trim().toLocaleLowerCase('zh-CN');
+        let visibleCount = 0;
+        rows.forEach((row) => {
+          const matches = (!query || row.textContent.toLocaleLowerCase('zh-CN').includes(query))
+            && (!brand.value || row.dataset.brand === brand.value)
+            && (!format.value || row.dataset.format === format.value)
+            && (!status.value || row.dataset.status === status.value);
+          row.hidden = !matches;
+          if (matches) visibleCount += 1;
+        });
+        result.textContent = `显示 ${visibleCount} / ${rows.length} 条记录`;
+      };
+      [search, brand, format, status].forEach((control) => {
+        control.addEventListener(control === search ? 'input' : 'change', applyFilters);
+      });
+    })();
+  </script>
+</body>
+</html>
